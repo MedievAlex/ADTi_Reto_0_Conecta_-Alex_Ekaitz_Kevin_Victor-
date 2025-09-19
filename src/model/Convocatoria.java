@@ -74,7 +74,7 @@ public class Convocatoria {
     //Declare toString
     @Override
     public String toString() {
-        return "Convocatoria{" + "convocatoria=" + convocatoria + ", descripcion=" + descripcion + ", date=" + date + ", curso=" + curso + ", eId=" + eId + '}';
+        return "Convocatoria [" + "convocatoria: " + convocatoria + ", Descripcion: " + descripcion + ", Date: " + date + ", Curso: " + curso + ", ID Enunciado: " + eId + ']';
     }
     
 }
