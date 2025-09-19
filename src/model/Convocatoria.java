@@ -20,6 +20,15 @@ public class Convocatoria {
         this.curso = "";
         this.eId = 0;
     }
+    
+    //Declare constructor with parameters
+    public Convocatoria(String convocatoria, String descripcion, Date date, String curso, int eId) {
+        this.convocatoria = convocatoria;
+        this.descripcion = descripcion;
+        this.date = date;
+        this.curso = curso;
+        this.eId = eId;
+    }
 
     // Declare getters and setters
     public String getConvocatoria() {
@@ -62,4 +71,10 @@ public class Convocatoria {
         this.eId = eId;
     }
 
+    //Declare toString
+    @Override
+    public String toString() {
+        return "Convocatoria{" + "convocatoria=" + convocatoria + ", descripcion=" + descripcion + ", date=" + date + ", curso=" + curso + ", eId=" + eId + '}';
+    }
+    
 }
