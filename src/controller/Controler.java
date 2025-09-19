@@ -7,4 +7,8 @@ package controller;
 
 public class Controler {
     	
+    public boolean verifyUser(User user) {
+		return dao.verifyUser(user);
+	}
+    
 }
