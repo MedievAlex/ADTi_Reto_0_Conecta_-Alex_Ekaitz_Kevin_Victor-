@@ -1,24 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 public interface ModelDAO {
-    public boolean nuevaUnidadDidactica(UnidadDidactica unidadDidactica);
     
-    /*
-     Create a teaching unit (Unit) and an exam session (Session).
-     Create an exam statement by adding the teaching units that it will refer to. The session for
-    which it is created will also be associated
-    with this statement.
-     Consult the exam statements in which a
-    specific teaching unit is covered.
-     Consult in which sessions a specific
-    statement has been used.
-     View the text document associated with a
-    statement.
-     Assign a statement to a session.
-    */
+    // Create a teaching unit (UnidadDIdactica)
+    public boolean nuevaUnidadDidactica(UnidadDidactica unidadDidactica); 
+    
+    // Create a exam session (Convocatoria)
+    public boolean nuevaConvocatoria(Convocatoria convocatoria); 
+    
+    // Create an exam statement (Enunciado) by adding the teaching units (UnidadDidactica) that it will refer to. 
+    // The session (Convocatoria) for which it is created will also be associated with this statement (Enunciado)
+    public boolean nuevoEnunciado(Enunciado enunciado); 
+   
+    // Consult the exam statement (Enunciado) in which a specific teaching unit (UnidadDIdactica) is covered
+    public boolean consultarEnunciadoPorUnidadDidactica(UnidadDidactica unidadDidactica); 
+   
+    // Consult in which session (Convocatoria) a specific statement (Enunciado) has been used
+    public boolean consultarConvocatoriaPorEnunciado(Enunciado enunciado); 
+    
+    // View the text document associated with a statement (Enunciado)
+    public boolean mostrarTextoPorEnunciado(Enunciado enunciado); 
+    
+    // Assign a statement (Enunciado) to a session (Convocatoria)
+    public boolean asignarEnunciado(Enunciado enunciado); 
+     
 }
