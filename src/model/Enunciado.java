@@ -71,6 +71,6 @@ public class Enunciado {
     //Declare toString
     @Override
     public String toString() {
-        return "Enunciado{" + "id=" + id + ", description=" + description + ", nivel=" + nivel + ", disponible=" + disponible + ", ruta=" + ruta + '}';
+        return "Enunciado [" + "ID: " + id + ", Description: " + description + ", Nivel: " + nivel + ", Disponible: " + disponible + ", Ruta: " + ruta + ']';
     }
 }
