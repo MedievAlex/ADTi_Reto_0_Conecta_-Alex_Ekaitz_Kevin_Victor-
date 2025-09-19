@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
+import model.Convocatoria;
 import model.DBImplementation;
 import model.Enunciado;
 import model.ModelDAO;
@@ -15,17 +11,21 @@ public class Controler {
     // Prepare the DB Implementation
     ModelDAO dao = new DBImplementation();
     
-    // Create a teaching unit (UnidadDIdactica)
+    // [ 1 ] Create a teaching unit (UnidadDIdactica)
     public boolean nuevaUnidadDidactica(UnidadDidactica unidadDidactica){
 		return dao.nuevaUnidadDidactica(unidadDidactica);
     } 
     
-    // Create an exam statement (Enunciado) by adding the teaching units (UnidadDidactica) that it will refer to. 
-    // The session (Convocatoria) for which it is created will also be associated with this statement (Enunciado)
+     // [ 2 ] Create an exam statement (Enunciado) by adding a teaching units (UnidadDidactica)
     public boolean nuevoEnunciado(Enunciado enunciado){
 		return dao.nuevoEnunciado(enunciado);
     }  
    
+    // [ 3 ] Create a exam session (Convocatoria) by adding an existent statement (Enunciado)
+    public boolean nuevaConvocatoria(Convocatoria convocatoria){
+		return dao.nuevaConvocatoria(convocatoria);
+    }   
+
     // Consult the exam statement (Enunciado) in which a specific teaching unit (UnidadDIdactica) is covered
     public boolean consultarEnunciadoPorUnidadDidactica(UnidadDidactica unidadDidactica){
 		return dao.consultarEnunciadoPorUnidadDidactica(unidadDidactica);
@@ -35,15 +35,5 @@ public class Controler {
     public boolean consultarConvocatoriaPorEnunciado(Enunciado enunciado){
 		return dao.consultarConvocatoriaPorEnunciado(enunciado);
     }    
-    
-    // View the text document associated with a statement (Enunciado)
-    public boolean mostrarTextoPorEnunciado(Enunciado enunciado){
-		return dao.mostrarTextoPorEnunciado(enunciado);
-    }     
-    
-    // Assign a statement (Enunciado) to a session (Convocatoria)
-    public boolean asignarEnunciado(Enunciado enunciado){
-		return dao.asignarEnunciado(enunciado);
-    }      
-    
+     
 }
