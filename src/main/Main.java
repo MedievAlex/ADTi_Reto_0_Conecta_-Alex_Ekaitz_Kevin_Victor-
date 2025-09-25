@@ -6,14 +6,14 @@ import model.ExamStatement;
 import model.TeachingUnit;
 import utilidades.Utilidades;
 
-
 /**
  * @author Alex, Ekaitz, Kevin & Victor
  */
 public class Main {
 
     /**
-     * Shows the menu and its options returning the value entered by console. Read by using Utilidades.
+     * Shows the menu and its options returning the value entered by console.
+     * Read by using Utilidades.
      *
      * @return Utilidades.leerInt(0, 5)
      */
@@ -28,10 +28,16 @@ public class Main {
         System.out.print("Choose: ");
         return Utilidades.leerInt(0, 5);
     }
-    
+
+    /**
+     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist first to
+     * create it after.
+     *
+     * @param controller
+     */
     public static void createTeachingUnit(Controller controller) {
         TeachingUnit teachingUnit = new TeachingUnit();
-        
+
         System.out.print("Enter the ACRONIM: ");
         teachingUnit.setAcronim(Utilidades.introducirCadena());
         if (!controller.verifyTeachingUnit(teachingUnit)) {
@@ -41,13 +47,18 @@ public class Main {
             teachingUnit.setEvaluation(Utilidades.introducirCadena());
             System.out.print("Enter the DESCRIPTION: ");
             teachingUnit.setDescription(Utilidades.introducirCadena());
-            
+
             controller.newTeachingUnit(teachingUnit);
         } else {
             System.out.print("[ ERROR ] That Teaching Unit already exist.");
         }
     }
-    
+
+    /**
+     * Main.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Controller controller = new Controller();
         int opcion = 0;
@@ -68,7 +79,7 @@ public class Main {
                     createTeachingUnit(controller);
                     break;
                 case 2: // [ 2 ] Create a new exam STATEMENT
-                   controller.newExamStatement(examStatement);
+                    controller.newExamStatement(examStatement);
                     break;
                 case 3: // [ 3 ] Create a exam SESSION
                     controller.newExamSession(examSession);
