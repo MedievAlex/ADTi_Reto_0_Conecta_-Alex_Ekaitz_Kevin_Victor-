@@ -8,7 +8,6 @@ public class TeachingUnit {
     /**
      * Variables.
      */
-    private int id;
     private String acronim;
     private String title;
     private String evaluation;
@@ -18,7 +17,6 @@ public class TeachingUnit {
      * Empty constructor.
      */
     public TeachingUnit() {
-        this.id = 0;
         this.acronim = "";
         this.title = "";
         this.evaluation = "";
@@ -29,27 +27,16 @@ public class TeachingUnit {
      * Parametized constructor to create the TEACHING UNIT with the necessary
      * variables to verify if it exists.
      *
-     * @param id
      * @param acronim
      * @param title
      * @param evaluation
      * @param description
      */
-    public TeachingUnit(int id, String acronim, String title, String evaluation, String description) {
-        this.id = id;
+    public TeachingUnit(String acronim, String title, String evaluation, String description) {
         this.acronim = acronim;
         this.title = title;
         this.evaluation = evaluation;
         this.description = description;
-    }
-
-    /**
-     * Id's getter. It gets the data of this variable from the TeachingUnit.
-     *
-     * @return id
-     */
-    public int getId() {
-        return id;
     }
 
     /**
@@ -89,16 +76,6 @@ public class TeachingUnit {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Id's setter. It sets the data of this variable from the TeachingUnit with
-     * the variable or value given.
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -148,6 +125,6 @@ public class TeachingUnit {
      */
     @Override
     public String toString() {
-        return "UnidadDidactica [" + "ID: " + id + ", Acronimo: " + acronim + ", Titulo: " + title + ", Evaluacion: " + evaluation + ", Descripcion: " + description + ']';
+        return "UnidadDidactica [" + "Acronimo: " + acronim + ", Titulo: " + title + ", Evaluacion: " + evaluation + ", Descripcion: " + description + "]";
     }
 }
