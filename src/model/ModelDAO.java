@@ -21,6 +21,12 @@ public interface ModelDAO {
      */
     public boolean newTeachingUnit(TeachingUnit teachingUnit);
    
+     /**
+     * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
+     *
+     */
+    public void showAllTeachingUnits();
+    
     /**
      * Verifies if the EXAM STATEMENT (Enunciado) exists
      *
@@ -38,6 +44,21 @@ public interface ModelDAO {
      */
     public boolean newExamStatement(ExamStatement examStatement);
 
+    /**
+     * Shows all the EXAM STATEMENT's (Enunciado) on the database
+     *
+     */
+    public void showAllExamStatements();
+        
+   /**
+     * Creates a insert on the StatementUnit table
+     *
+     * @param teachingUnit
+     * @param examStatement
+     * @return dao.newStatementForUnit(teachingUnit, examStatement)
+     */
+    public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement);
+    
     /**
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)
