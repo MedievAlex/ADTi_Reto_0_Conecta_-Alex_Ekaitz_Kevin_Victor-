@@ -13,17 +13,17 @@ public class Controller {
 
     // Prepare the DB Implementation
     ModelDAO dao = new DBImplementation();
-    
+
     /**
      * Verifies if the TEACHING UNIT (UnidadDIdactica) exists
      *
      * @param teachingUnit
      * @return teachingUnit
      */
-    public boolean verifyTeachingUnit(TeachingUnit teachingUnit){
+    public boolean verifyTeachingUnit(TeachingUnit teachingUnit) {
         return dao.verifyTeachingUnit(teachingUnit);
     }
-    
+
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
      *
@@ -32,6 +32,16 @@ public class Controller {
      */
     public boolean newTeachingUnit(TeachingUnit teachingUnit) {
         return dao.newTeachingUnit(teachingUnit);
+    }
+
+    /**
+     * Verifies if the EXAM STATEMENT (Enunciado) exists
+     *
+     * @param examStatement
+     * @return
+     */
+    public boolean verifyExamStatement(ExamStatement examStatement) {
+        return dao.verifyExamStatement(examStatement);
     }
 
     /**

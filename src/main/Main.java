@@ -1,6 +1,7 @@
 package main;
 
 import controller.Controller;
+import java.sql.Date;
 import model.ExamSession;
 import model.ExamStatement;
 import model.StatementLevel;
@@ -37,10 +38,8 @@ public class Main {
      * @param controller
      */
     public static void createTeachingUnit(Controller controller) {
-        TeachingUnit teachingUnit = new TeachingUnit();
-
         System.out.print("Enter the ACRONIM: ");
-        teachingUnit.setAcronim(Utilidades.introducirCadena());
+        TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
         if (!controller.verifyTeachingUnit(teachingUnit)) {
             System.out.print("Enter the TITLE: ");
             teachingUnit.setTitle(Utilidades.introducirCadena());
@@ -56,60 +55,90 @@ public class Main {
     }
 
     /**
-     * Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
-     * units (UnidadDidactica).
+     * Create an EXAM STATEMENT (Enunciado) by adding an existent teaching units
+     * (UnidadDidactica).
      *
      * @param controller
      */
     public static void createExamStatement(Controller controller) {
         ExamStatement examStatement = new ExamStatement();
+        boolean exists = true;
 
+        System.out.print("Enter the DESCRIPTION: ");
+        examStatement.setDescription(Utilidades.introducirCadena());
+        System.out.println("[ LEVELS ]");
+        System.out.println("1 - ALTO");
+        System.out.println("2 - MEDIO");
+        System.out.println("3 - BAJO");
+        System.out.print("Enter the NIVEL: ");
+        switch (Utilidades.leerInt(1, 3)) {
+            case 1:
+                examStatement.setStatementLevel(StatementLevel.ALTO);
+                break;
+            case 2:
+                examStatement.setStatementLevel(StatementLevel.MEDIO);
+                break;
+            case 3:
+                examStatement.setStatementLevel(StatementLevel.BAJO);
+                break;
+        }
+        System.out.print("Enter the AVAIABILITY (Y/N): ");
+        switch (Utilidades.leerChar('Y', 'N')) {
+            case 'Y':
+                examStatement.setAvaiable(true);
+                break;
+            case 'N':
+                examStatement.setAvaiable(false);
+                break;
+        }
+        System.out.print("Enter the RUTA: ");
+        examStatement.setRuta(Utilidades.introducirCadena());
 
-            System.out.print("Enter the DESCRIPTION: ");
-            examStatement.setDescription(Utilidades.introducirCadena());
-            System.out.println("[ LEVELS ]");
-            System.out.println("1 - ALTO");
-            System.out.println("2 - MEDIO");
-            System.out.println("3 - BAJO");
-            System.out.print("Enter the NIVEL: ");
-            switch (Utilidades.leerInt(1, 3)) {
-                case 1:
-                    examStatement.setStatementLevel(StatementLevel.ALTO);
-                    break;
-                case 2:
-                    examStatement.setStatementLevel(StatementLevel.MEDIO);
-                    break;
-                case 3:
-                    examStatement.setStatementLevel(StatementLevel.BAJO);
-                    break;
+        System.out.println("[ AVAIABLE TEACHING UNITS ]");
+        controller.showAllTeachingUnits();
+
+        do {
+            System.out.print("Add the TEACHING UNIT's ACRONIM: ");
+            TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
+            exists = controller.verifyTeachingUnit(teachingUnit);
+            if (exists) {
+                System.out.print("[ ERROR ] Invalid ACRONIM");
             }
-            System.out.print("Enter the AVAIABILITY (Y/N): ");
-            switch (Utilidades.leerChar('Y', 'N')) {
-                case 'Y':
-                    examStatement.setAvaiable(true);
-                    break;
-                case 'N':
-                    examStatement.setAvaiable(false);
-                    break;            
-            }
-            System.out.print("Enter the RUTA: ");
-            examStatement.setRuta(Utilidades.introducirCadena());
-            
-            System.out.println("[ AVAIABLE TEACHING UNITS ]");
-            System.out.print("Add the TEACHING UNIT: ");
-            
-            controller.newExamStatement(examStatement);             
+        } while (exists);
+        controller.newExamStatement(examStatement);
+        controller.newStatementForUnit();
     }
 
     /**
-     * Create a EXAM SESSION (Convocatoria) by adding an existent
-     * STATEMENT (Enunciado).
+     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
+     * (Enunciado).
      *
      * @param controller
      */
     public static void createExamSession(Controller controller) {
         ExamSession examSession = new ExamSession();
-        
+        boolean exists = true;
+
+        System.out.print("Enter the CONVOCATORIA: ");
+        examSession.setConvocatoria(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setDescription(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setSession_date(Date.valueOf(Utilidades.leerFechaAMD()));
+        System.out.print("Enter the COURSE: ");
+        examSession.setCourse(Utilidades.introducirCadena());
+
+        System.out.println("[ AVAIABLE EXAM STATEMENTS ]");
+        controller.showAllExamStatements();
+
+        do {
+            System.out.print("Add the EXAM STATEMENTS's ID: ");
+            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
+            exists = controller.verifyExamStatement(examStatement);
+            if (exists) {
+                System.out.print("[ ERROR ] Invalid ID");
+            }
+        } while (exists);
         controller.newExamSession(examSession);
     }
 
@@ -121,22 +150,22 @@ public class Main {
      */
     public static void checkStatementByTeachingUnit(Controller controller) {
         TeachingUnit teachingUnit = new TeachingUnit();
-        
+
         controller.consultStatementByTeachingUnit(teachingUnit);
     }
 
     /**
-     * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
-     * STATEMENT (Enunciado) has been used.
+     * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM STATEMENT
+     * (Enunciado) has been used.
      *
      * @param controller
      */
     public static void checkSessionsByStatement(Controller controller) {
         ExamStatement examStatement = new ExamStatement();
-        
+
         controller.consultSessionsByStatement(examStatement);
     }
-     
+
     /**
      * Main.
      *
@@ -145,9 +174,6 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = new Controller();
         int opcion = 0;
-        TeachingUnit teachingUnit = new TeachingUnit();
-        ExamStatement examStatement = new ExamStatement();
-        ExamSession examSession = new ExamSession();
 
         do {
             System.out.println("***************************************");
