@@ -82,19 +82,19 @@ public class Main {
                 examStatement.setStatementLevel(StatementLevel.BAJO);
                 break;
         }
-        System.out.print("Enter the AVAIABILITY (Y/N): ");
+        System.out.print("Enter the AVAILABILITY (Y/N): ");
         switch (Utilidades.leerChar('Y', 'N')) {
             case 'Y':
-                examStatement.setAvaiable(true);
+                examStatement.setAvailable(true);
                 break;
             case 'N':
-                examStatement.setAvaiable(false);
+                examStatement.setAvailable(false);
                 break;
         }
         System.out.print("Enter the RUTA: ");
         examStatement.setRuta(Utilidades.introducirCadena());
 
-        System.out.println("[ AVAIABLE TEACHING UNITS ]");
+        System.out.println("[ AVAILABLE TEACHING UNITS ]");
         controller.showAllTeachingUnits();
 
         do {
@@ -103,10 +103,11 @@ public class Main {
             exists = controller.verifyTeachingUnit(teachingUnit);
             if (exists) {
                 System.out.print("[ ERROR ] Invalid ACRONIM");
+            } else {
+                controller.newExamStatement(examStatement);
+                controller.newStatementForUnit(teachingUnit, examStatement);
             }
         } while (exists);
-        controller.newExamStatement(examStatement);
-        controller.newStatementForUnit(teachingUnit, examStatement);
     }
 
     /**
@@ -128,7 +129,7 @@ public class Main {
         System.out.print("Enter the COURSE: ");
         examSession.setCourse(Utilidades.introducirCadena());
 
-        System.out.println("[ AVAIABLE EXAM STATEMENTS ]");
+        System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
         controller.showAllExamStatements();
 
         do {

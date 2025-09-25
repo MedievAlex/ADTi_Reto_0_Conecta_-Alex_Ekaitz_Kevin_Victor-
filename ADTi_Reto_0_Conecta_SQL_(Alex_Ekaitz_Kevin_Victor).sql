@@ -13,7 +13,7 @@ CREATE TABLE ExamStatement (
 ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
 DESCRIPTION varchar(200),
 STATEMENT_LEVEL ENUM('ALTO', 'MEDIO', 'BAJO'),
-AVAIABLE boolean,
+AVAILABLE boolean,
 RUTA varchar(100)
 );
 
@@ -38,7 +38,7 @@ INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES
 ("DIN", "Desarollo de Interfaces", "Primera", "Implanta sistemas y aplicaciones informáticas sobre entornos específicos."),
 ("ADTi", "Acceso a Datos Inglés", "Tercera", "Desarrolla aplicaciones y componentes de acceso a datos, gestionando su persistencia y garantizando la seguridad y calidad de los mismos.");
 
-INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAIABLE, RUTA) VALUES
+INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES
 ("Genera un programa con interfaz para una aplicación de compraventa utilizando una base de datos.", "ALTO", true, "Por la derecha"),
 ("Crea un esquema del funcionamiento de una aplicacion generica.", "BAJO", false, "A la izquierda");
 
