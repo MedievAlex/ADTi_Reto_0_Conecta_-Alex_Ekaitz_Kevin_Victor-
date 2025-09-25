@@ -65,6 +65,69 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
+     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist.
+     *
+     * @param teachingUnit
+     * @return exists
+     */
+    public boolean verifyTeachingUnit(TeachingUnit teachingUnit) {
+        // Open connection and declare a boolean to check if the user exists
+        boolean exists = false;
+        this.openConnection();
+
+        try {
+            // Prepares the SQL query
+            stmt = con.prepareStatement(SQLSELECT_TEACHINGUNIT);
+            stmt.setInt(1, teachingUnit.getId());
+            // Executes the SQL query
+            ResultSet rs = stmt.executeQuery();
+            // If there is any result, the user exists
+            if (rs.next()) {
+                exists = true;
+            }
+            // Closes the connection
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("The TEACHING UNIT couldn't be verified properly.");
+            e.printStackTrace();
+        }
+        return exists;
+    }
+
+    /**
+     * Creates a new TEACHING UNIT (UnidadDIdactica).
+     *
+     * @param teachingUnit
+     * @return register
+     */
+    @Override
+    public boolean newTeachingUnit(TeachingUnit teachingUnit) {
+        boolean register = false;
+
+        if (!verifyTeachingUnit(teachingUnit)) {
+            this.openConnection();
+            try {
+                stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); //(ACRONIM, TITLE, EVALUATION, DESCRIPTION)
+                stmt.setString(1, teachingUnit.getAcronim());
+                stmt.setString(2, teachingUnit.getTitle());
+                stmt.setString(3, teachingUnit.getEvaluation());
+                stmt.setString(4, teachingUnit.getDescription());
+                if (stmt.executeUpdate() > 0) {
+                    register = true;
+                }
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                System.out.println("An error has occurred when attempting to register the user.");
+                e.printStackTrace();
+            }
+        }
+        return register;
+    }
+
+    /**
      * Verifyes if the EXAM STATEMENT (UnidadDIdactica) already exist.
      *
      * @param examStatement
@@ -125,69 +188,6 @@ public class DBImplementation implements ModelDAO {
                 }
                 stmt.setBoolean(3, examStatement.getAvaiable());
                 stmt.setString(4, examStatement.getDescription());
-                if (stmt.executeUpdate() > 0) {
-                    register = true;
-                }
-                stmt.close();
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("An error has occurred when attempting to register the user.");
-                e.printStackTrace();
-            }
-        }
-        return register;
-    }
-
-    /**
-     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist.
-     *
-     * @param teachingUnit
-     * @return exists
-     */
-    public boolean verifyTeachingUnit(TeachingUnit teachingUnit) {
-        // Open connection and declare a boolean to check if the user exists
-        boolean exists = false;
-        this.openConnection();
-
-        try {
-            // Prepares the SQL query
-            stmt = con.prepareStatement(SQLSELECT_TEACHINGUNIT);
-            stmt.setInt(1, teachingUnit.getId());
-            // Executes the SQL query
-            ResultSet rs = stmt.executeQuery();
-            // If there is any result, the user exists
-            if (rs.next()) {
-                exists = true;
-            }
-            // Closes the connection
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("The TEACHING UNIT couldn't be verified properly.");
-            e.printStackTrace();
-        }
-        return exists;
-    }
-
-    /**
-     * Creates a new TEACHING UNIT (UnidadDIdactica).
-     *
-     * @param teachingUnit
-     * @return register
-     */
-    @Override
-    public boolean newTeachingUnit(TeachingUnit teachingUnit) {
-        boolean register = false;
-
-        if (!verifyTeachingUnit(teachingUnit)) {
-            this.openConnection();
-            try {
-                stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); //(ACRONIM, TITLE, EVALUATION, DESCRIPTION)
-                stmt.setString(1, teachingUnit.getAcronim());
-                stmt.setString(2, teachingUnit.getTitle());
-                stmt.setString(3, teachingUnit.getEvaluation());
-                stmt.setString(4, teachingUnit.getDescription());
                 if (stmt.executeUpdate() > 0) {
                     register = true;
                 }
