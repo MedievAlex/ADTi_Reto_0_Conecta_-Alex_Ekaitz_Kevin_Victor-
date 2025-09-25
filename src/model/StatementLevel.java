@@ -3,6 +3,6 @@ package model;
 /**
  * @author Alex, Ekaitz, Kevin & Victor
  */
-public enum Nivel {
+public enum StatementLevel {
     ALTO, MEDIO, BAJO
 }

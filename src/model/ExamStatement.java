@@ -10,7 +10,7 @@ public class ExamStatement {
      */
     private int id;
     private String description;
-    private Nivel nivel;
+    private StatementLevel statement_level;
     private Boolean avaiable;
     private String ruta;
 
@@ -20,7 +20,7 @@ public class ExamStatement {
     public ExamStatement() {
         this.id = 0;
         this.description = "";
-        this.nivel = null;
+        this.statement_level = null;
         this.avaiable = null;
         this.ruta = "";
     }
@@ -31,14 +31,14 @@ public class ExamStatement {
      *
      * @param id
      * @param description
-     * @param nivel
+     * @param statement_level
      * @param avaiable
      * @param ruta
      */
-    public ExamStatement(int id, String description, Nivel nivel, Boolean avaiable, String ruta) {
+    public ExamStatement(int id, String description, StatementLevel statement_level, Boolean avaiable, String ruta) {
         this.id = id;
         this.description = description;
-        this.nivel = nivel;
+        this.statement_level = statement_level;
         this.avaiable = avaiable;
         this.ruta = ruta;
     }
@@ -83,22 +83,22 @@ public class ExamStatement {
     }
 
     /**
-     * Nivel's getter. It gets the data of this variable from the ExamStatement.
+     * Statement Level's getter. It gets the data of this variable from the ExamStatement.
      *
-     * @return nivel
+     * @return statement_level
      */
-    public Nivel getNivel() {
-        return nivel;
+    public StatementLevel getStatementLevel() {
+        return statement_level;
     }
 
     /**
-     * Nivel's setter. It sets the data of this variable from the TeachingUnit
+     * Statement Level's setter. It sets the data of this variable from the TeachingUnit
      * with the variable or value given.
      *
-     * @param nivel
+     * @param statement_level
      */
-    public void setNivel(Nivel nivel) {
-        this.nivel = nivel;
+    public void setStatementLevel(StatementLevel statement_level) {
+        this.statement_level = statement_level;
     }
 
     /**
@@ -147,6 +147,6 @@ public class ExamStatement {
      */
     @Override
     public String toString() {
-        return "Enunciado [" + "ID: " + id + ", Description: " + description + ", Nivel: " + nivel + ", Disponible: " + avaiable + ", Ruta: " + ruta + ']';
+        return "Enunciado [" + "ID: " + id + ", Description: " + description + ", Nivel: " + statement_level + ", Disponible: " + avaiable + ", Ruta: " + ruta + ']';
     }
 }

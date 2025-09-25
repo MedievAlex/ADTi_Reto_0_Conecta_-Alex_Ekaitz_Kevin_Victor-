@@ -3,6 +3,7 @@ package main;
 import controller.Controller;
 import model.ExamSession;
 import model.ExamStatement;
+import model.StatementLevel;
 import model.TeachingUnit;
 import utilidades.Utilidades;
 
@@ -55,6 +56,52 @@ public class Main {
     }
 
     /**
+     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist first to
+     * create it after.
+     *
+     * @param controller
+     */
+    public static void createExamStatement(Controller controller) {
+        ExamStatement examStatement = new ExamStatement();
+
+
+            System.out.print("Enter the DESCRIPTION: ");
+            examStatement.setDescription(Utilidades.introducirCadena());
+            System.out.println("[ LEVELS ]");
+            System.out.println("1 - ALTO");
+            System.out.println("2 - MEDIO");
+            System.out.println("3 - BAJO");
+            System.out.print("Enter the NIVEL: ");
+            switch (Utilidades.leerInt(1, 3)) {
+                case 1:
+                    examStatement.setStatementLevel(StatementLevel.ALTO);
+                    break;
+                case 2:
+                    examStatement.setStatementLevel(StatementLevel.MEDIO);
+                    break;
+                case 3:
+                    examStatement.setStatementLevel(StatementLevel.BAJO);
+                    break;
+            }
+            System.out.print("Enter the AVAIABILITY (Y/N): ");
+            switch (Utilidades.leerChar('Y', 'N')) {
+                case 'Y':
+                    examStatement.setAvaiable(true);
+                    break;
+                case 'N':
+                    examStatement.setAvaiable(false);
+                    break;            
+            }
+            System.out.print("Enter the RUTA: ");
+            examStatement.setRuta(Utilidades.introducirCadena());
+            
+            System.out.println("[ AVAIABLE TEACHING UNITS ]");
+            System.out.print("Add the TEACHING UNIT: ");
+            
+            controller.newExamStatement(examStatement);             
+    }
+
+    /**
      * Main.
      *
      * @param args
@@ -79,7 +126,7 @@ public class Main {
                     createTeachingUnit(controller);
                     break;
                 case 2: // [ 2 ] Create a new exam STATEMENT
-                    controller.newExamStatement(examStatement);
+                    createExamStatement(controller);
                     break;
                 case 3: // [ 3 ] Create a exam SESSION
                     controller.newExamSession(examSession);

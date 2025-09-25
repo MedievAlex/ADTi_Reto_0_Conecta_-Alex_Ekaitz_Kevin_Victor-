@@ -12,7 +12,7 @@ DESCRIPTION varchar(200)
 CREATE TABLE ExamStatement (
 ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
 DESCRIPTION varchar(200),
-NIVEL ENUM('ALTO', 'MEDIO', 'BAJO'),
+STATEMENT_LEVEL ENUM('ALTO', 'MEDIO', 'BAJO'),
 AVAIABLE boolean,
 RUTA varchar(100)
 );
@@ -38,7 +38,7 @@ INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES
 ("DIN", "Desarollo de Interfaces", "Primera", "Descripcion de ejemplo 3"),
 ("ADTi", "Acceso a Datos Inglés", "Tercera", "Descripcion de ejemplo 4");
 
-INSERT INTO ExamStatement (DESCRIPTION, NIVEL, AVAIABLE, RUTA) VALUES
+INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAIABLE, RUTA) VALUES
 ("Descripcion de ejemplo 1", "ALTO", true, "Por la derecha"),
 ("Descripcion de ejemplo 2", "MEDIO", false, "A la izquierda");
 
