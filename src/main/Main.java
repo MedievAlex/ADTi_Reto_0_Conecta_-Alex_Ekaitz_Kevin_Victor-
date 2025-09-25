@@ -56,8 +56,8 @@ public class Main {
     }
 
     /**
-     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist first to
-     * create it after.
+     * Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
+     * units (UnidadDidactica).
      *
      * @param controller
      */
@@ -102,6 +102,42 @@ public class Main {
     }
 
     /**
+     * Create a EXAM SESSION (Convocatoria) by adding an existent
+     * STATEMENT (Enunciado).
+     *
+     * @param controller
+     */
+    public static void createExamSession(Controller controller) {
+        ExamSession examSession = new ExamSession();
+        
+        controller.newExamSession(examSession);
+    }
+
+    /**
+     * Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
+     * (UnidadDIdactica).
+     *
+     * @param controller
+     */
+    public static void checkStatementByTeachingUnit(Controller controller) {
+        TeachingUnit teachingUnit = new TeachingUnit();
+        
+        controller.consultStatementByTeachingUnit(teachingUnit);
+    }
+
+    /**
+     * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
+     * STATEMENT (Enunciado) has been used.
+     *
+     * @param controller
+     */
+    public static void checkSessionsByStatement(Controller controller) {
+        ExamStatement examStatement = new ExamStatement();
+        
+        controller.consultSessionsByStatement(examStatement);
+    }
+     
+    /**
      * Main.
      *
      * @param args
@@ -129,13 +165,13 @@ public class Main {
                     createExamStatement(controller);
                     break;
                 case 3: // [ 3 ] Create a exam SESSION
-                    controller.newExamSession(examSession);
+                    createExamSession(controller);
                     break;
                 case 4: // [ 4 ] Consult the exam STATEMENT by TEACHING UNIT
-                    controller.consultStatementByTeachingUnit(teachingUnit);
+                    checkStatementByTeachingUnit(controller);
                     break;
                 case 5: // [ 5 ] Consult in which SESSIONS a specific STATEMENT has been used
-                    controller.consultSessionsByStatement(examStatement);
+                    checkSessionsByStatement(controller);
                     break;
             }
         } while (opcion != 0);
