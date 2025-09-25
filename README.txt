@@ -3,11 +3,6 @@
 -> controller
 
 ---> Controller
-------> showAllTeachingUnits
-------> newStatementForUnit
-------> showAllExamStatements
-------> consultStatementByTeachingUnit
-------> consultSessionsByStatement
 
 
 -> main
@@ -22,15 +17,10 @@
 -> model
 
 ---> DBImplementation
-------> showAllTeachingUnits
-------> newStatementForUnit (Creates the table StatementUnit)
-------> showAllExamStatements
+------> newStatementForUnit
+------> showAllExamStatements (ENUM Level need to be checked)
 ------> consultStatementByTeachingUnit
 ------> consultSessionsByStatement
 
 ---> ModelDAO
-------> showAllTeachingUnits
-------> newStatementForUnit
-------> showAllExamStatements
-------> consultStatementByTeachingUnit
-------> consultSessionsByStatement
+
