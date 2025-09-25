@@ -11,7 +11,7 @@ public class ExamStatement {
     private int id;
     private String description;
     private StatementLevel statement_level;
-    private Boolean avaiable;
+    private Boolean available;
     private String ruta;
 
     /**
@@ -21,7 +21,7 @@ public class ExamStatement {
         this.id = 0;
         this.description = " ";
         this.statement_level = null;
-        this.avaiable = null;
+        this.available = null;
         this.ruta = " ";
     }
     
@@ -35,7 +35,7 @@ public class ExamStatement {
         this.id = id;
         this.description = " ";
         this.statement_level = null;
-        this.avaiable = null;
+        this.available = null;
         this.ruta = " ";
     }
     
@@ -53,7 +53,7 @@ public class ExamStatement {
         this.id = id;
         this.description = description;
         this.statement_level = statement_level;
-        this.avaiable = avaiable;
+        this.available = avaiable;
         this.ruta = ruta;
     }
 
@@ -116,23 +116,23 @@ public class ExamStatement {
     }
 
     /**
-     * Avaiable's getter. It gets the data of this variable from the
+     * Available's getter. It gets the data of this variable from the
      * ExamStatement.
      *
-     * @return avaiable
+     * @return available
      */
-    public Boolean getAvaiable() {
-        return avaiable;
+    public Boolean getAvailable() {
+        return available;
     }
 
     /**
      * Avaiable's setter. It sets the data of this variable from the
      * TeachingUnit with the variable or value given.
      *
-     * @param avaiable
+     * @param available
      */
-    public void setAvaiable(Boolean avaiable) {
-        this.avaiable = avaiable;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     /**
@@ -161,6 +161,6 @@ public class ExamStatement {
      */
     @Override
     public String toString() {
-        return "Enunciado [" + "ID: " + id + ", Description: " + description + ", Nivel: " + statement_level + ", Disponible: " + avaiable + ", Ruta: " + ruta + ']';
+        return "Exam Statement [" + "ID: " + id + ", Description: " + description + ", Statement Level: " + statement_level + ", Available: " + available + ", Ruta: " + ruta + ']';
     }
 }

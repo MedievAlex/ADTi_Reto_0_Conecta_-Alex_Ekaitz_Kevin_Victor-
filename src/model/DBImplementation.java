@@ -28,7 +28,7 @@ public class DBImplementation implements ModelDAO {
      * SQL Queries: INSERTS
      */
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
-    final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAIABLE, RUTA) VALUES (?, ?, ?, ?)";
+    final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)";
 
     /**
@@ -129,41 +129,43 @@ public class DBImplementation implements ModelDAO {
         }
         return register;
     }
-   
+
     /**
      * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
      */
-    public void showAllTeachingUnits (){
+    @Override
+    public void showAllTeachingUnits() {
         // Open connection and checks all the existing units.
         this.openConnection();
         ResultSet rs = null;
-        
-        try{
+
+        try {
             // Prepare the SQL query
             stmt = con.prepareStatement(SQLSELECT_ALLTEACHINGUNITS);
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 TeachingUnit teachingUnit = new TeachingUnit();
                 teachingUnit.setAcronim(rs.getString("ACRONIM"));
                 teachingUnit.setTitle(rs.getString("TITLE"));
                 teachingUnit.setEvaluation(rs.getString("EVALUATION"));
                 teachingUnit.setDescription(rs.getString("DESCRIPTION"));
-                System.out.println(teachingUnit);
+                teachingUnit.toString();
             }
             rs.close();
             stmt.close();
             con.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Verifyes if the EXAM STATEMENT (UnidadDIdactica) already exist.
      *
      * @param examStatement
      * @return exists
      */
+    @Override
     public boolean verifyExamStatement(ExamStatement examStatement) {
         // Open connection and declare a boolean to check if the user exists
         boolean exists = false;
@@ -204,7 +206,7 @@ public class DBImplementation implements ModelDAO {
         if (!verifyExamStatement(examStatement)) {
             this.openConnection();
             try {
-                stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAIABLE, RUTA)
+                stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA)
                 stmt.setString(1, examStatement.getDescription());
                 switch (examStatement.getStatementLevel()) {
                     case ALTO:
@@ -217,7 +219,7 @@ public class DBImplementation implements ModelDAO {
                         stmt.setString(2, "BAJO");
                         break;
                 }
-                stmt.setBoolean(3, examStatement.getAvaiable());
+                stmt.setBoolean(3, examStatement.getAvailable());
                 stmt.setString(4, examStatement.getDescription());
                 if (stmt.executeUpdate() > 0) {
                     register = true;
@@ -232,80 +234,50 @@ public class DBImplementation implements ModelDAO {
         return register;
     }
 
-    /*
-    * Shows all the EXAM STATEMENT's (Enunciado) on the database
-    */
-    public void showAllStatements(){
+    /**
+     * Shows all the EXAM STATEMENT's (Enunciado) on the database
+     */
+    @Override
+    public void showAllExamStatements() {
         // Open connection and checks all the existing units.
         this.openConnection();
         ResultSet rs = null;
-        
-        try{
+
+        try {
             // Prepare the SQL query
             stmt = con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS);
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ExamStatement examStatement = new ExamStatement();
                 examStatement.setId(rs.getInt("ID"));
                 examStatement.setDescription(rs.getString("DESCRIPTION"));
                 //examStatement.setStatementLevel(rs.getStatement_Level(""));
-                examStatement.setAvaiable(rs.getBoolean("AVAIABLE"));
+                examStatement.setAvailable(rs.getBoolean("AVAILABLE"));
                 examStatement.setRuta(rs.getString("RUTA"));
-                System.out.println(examStatement);
+                examStatement.toString();
             }
             rs.close();
             stmt.close();
             con.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
-     * Verifyes if the EXAM SESSION (Convocatoria) already exist.
-     *
-     * @param examSession
-     * @return exists
-     */
-    public boolean verifyExamSession(ExamSession examSession) {
-        // Open connection and declare a boolean to check if the user exists
-        boolean exists = false;
-        this.openConnection();
-
-        try {
-            // Prepares the SQL query
-            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION);
-            // stmt.setInt(1, examSession.getId());
-            // Executes the SQL query
-            ResultSet rs = stmt.executeQuery();
-            // If there is any result, the user exists
-            if (rs.next()) {
-                exists = true;
-            }
-            // Closes the connection
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("The TEACHING UNIT couldn't be verified properly.");
-            e.printStackTrace();
-        }
-        return exists;
-    }
-
-       /**
      * Creates a insert on the StatementUnit table
      *
      * @param teachingUnit
      * @param examStatement
      * @return register
      */
+    @Override
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) {
         boolean register = false;
-        
+
         return register;
     }
-    
+
     /**
      * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
      * (Enunciado).
@@ -317,24 +289,22 @@ public class DBImplementation implements ModelDAO {
     public boolean newExamSession(ExamSession examSession) {
         boolean register = false;
 
-        if (!verifyExamSession(examSession)) {
-            this.openConnection();
-            try {
-                stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(CONVOCATORIA, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
-                stmt.setString(1, examSession.getConvocatoria());
-                stmt.setString(2, examSession.getDescription());
-                stmt.setDate(3, examSession.getSession_date());
-                stmt.setString(4, examSession.getCourse());
-                stmt.setInt(5, examSession.geteId());
-                if (stmt.executeUpdate() > 0) {
-                    register = true;
-                }
-                stmt.close();
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("An error has occurred when attempting to register the user.");
-                e.printStackTrace();
+        this.openConnection();
+        try {
+            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(CONVOCATORIA, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
+            stmt.setString(1, examSession.getConvocatoria());
+            stmt.setString(2, examSession.getDescription());
+            stmt.setDate(3, examSession.getSession_date());
+            stmt.setString(4, examSession.getCourse());
+            stmt.setInt(5, examSession.geteId());
+            if (stmt.executeUpdate() > 0) {
+                register = true;
             }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("An error has occurred when attempting to register the user.");
+            e.printStackTrace();
         }
         return register;
     }
@@ -346,6 +316,7 @@ public class DBImplementation implements ModelDAO {
      * @param teachingUnit
      * @return user
      */
+    @Override
     public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit) {
         return true;
     }
@@ -355,11 +326,13 @@ public class DBImplementation implements ModelDAO {
      * has been used.
      *
      * @param examStatement
-     * @return
+     * @return true
      */
+    @Override
     public boolean consultSessionsByStatement(ExamStatement examStatement) {
         return true;
     }
+}
 
     //****************************EJEMPLO DE TIPO*******************************
     /* Verify the user type (only used once the user is verified)
@@ -390,4 +363,3 @@ public class DBImplementation implements ModelDAO {
         return admin;
     }
      */
-}
