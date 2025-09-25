@@ -35,7 +35,7 @@ public class DBImplementation implements ModelDAO {
      * SQL Queries: SELECTS
      */
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
-    final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE id = ?";
+    final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE acronim = ?";
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
     /**
@@ -70,6 +70,7 @@ public class DBImplementation implements ModelDAO {
      * @param teachingUnit
      * @return exists
      */
+    @Override
     public boolean verifyTeachingUnit(TeachingUnit teachingUnit) {
         // Open connection and declare a boolean to check if the user exists
         boolean exists = false;
@@ -78,7 +79,7 @@ public class DBImplementation implements ModelDAO {
         try {
             // Prepares the SQL query
             stmt = con.prepareStatement(SQLSELECT_TEACHINGUNIT);
-            stmt.setInt(1, teachingUnit.getId());
+            stmt.setString(1, teachingUnit.getAcronim());
             // Executes the SQL query
             ResultSet rs = stmt.executeQuery();
             // If there is any result, the user exists

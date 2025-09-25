@@ -4,11 +4,19 @@ package model;
  * @author Alex, Ekaitz, Kevin & Victor
  */
 public interface ModelDAO {
-
+    
+    /**
+     * Verifies if the TEACHING UNIT (UnidadDIdactica) exists
+     *
+     * @param teachingUnit
+     * @return
+     */
+    public boolean verifyTeachingUnit(TeachingUnit teachingUnit);
+    
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
      *
-     * @parameter teachingUnit
+     * @param teachingUnit
      * @return
      */
     public boolean newTeachingUnit(TeachingUnit teachingUnit);
@@ -17,7 +25,7 @@ public interface ModelDAO {
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
      *
-     * @parameter examStatement
+     * @param examStatement
      * @return
      */
     public boolean newExamStatement(ExamStatement examStatement);
@@ -26,7 +34,7 @@ public interface ModelDAO {
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)
      *
-     * @parameter examSession
+     * @param examSession
      * @return
      */
     public boolean newExamSession(ExamSession examSession);
@@ -35,7 +43,7 @@ public interface ModelDAO {
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
      *
-     * @parameter teachingUnit
+     * @param teachingUnit
      * @return
      */
     public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit);
@@ -44,7 +52,7 @@ public interface ModelDAO {
      * [ 5 ] Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
      * STATEMENT (Enunciado) has been used
      *
-     * @parameter examSession
+     * @param examStatement
      * @return
      */
     public boolean consultSessionsByStatement(ExamStatement examStatement);

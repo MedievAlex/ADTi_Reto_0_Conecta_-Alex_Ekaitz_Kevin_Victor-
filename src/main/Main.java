@@ -12,8 +12,13 @@ import utilidades.Utilidades;
  */
 public class Main {
 
+    /**
+     * Shows the menu and its options returning the value entered by console. Read by using Utilidades.
+     *
+     * @return Utilidades.leerInt(0, 5)
+     */
     public static int mostrarMenu() {
-        System.out.println(" ________________\n|                |\n|      MENU      |\n|   PRINCIPAL    |\n|________________|\n");
+        System.out.println(" ________________\n|                |\n|      MAIN      |\n|      MENU      |\n|________________|\n");
         System.out.println("[ 0 ] EXIT");
         System.out.println("[ 1 ] Create a new TEACHING UNIT");
         System.out.println("[ 2 ] Create a new exam STATEMENT");
@@ -22,6 +27,25 @@ public class Main {
         System.out.println("[ 5 ] Consult in which SESSIONS a specific STATEMENT has been used");
         System.out.print("Choose: ");
         return Utilidades.leerInt(0, 5);
+    }
+    
+    public static void createTeachingUnit(Controller controller) {
+        TeachingUnit teachingUnit = new TeachingUnit();
+        
+        System.out.print("Enter the ACRONIM: ");
+        teachingUnit.setAcronim(Utilidades.introducirCadena());
+        if (!controller.verifyTeachingUnit(teachingUnit)) {
+            System.out.print("Enter the TITLE: ");
+            teachingUnit.setTitle(Utilidades.introducirCadena());
+            System.out.print("Enter the EVALUATION: ");
+            teachingUnit.setEvaluation(Utilidades.introducirCadena());
+            System.out.print("Enter the DESCRIPTION: ");
+            teachingUnit.setDescription(Utilidades.introducirCadena());
+            
+            controller.newTeachingUnit(teachingUnit);
+        } else {
+            System.out.print("[ ERROR ] That Teaching Unit already exist.");
+        }
     }
     
     public static void main(String[] args) {
@@ -38,21 +62,21 @@ public class Main {
 
             switch (opcion) {
                 case 0:
-                    System.out.println(" ________________\n|                |\n|      AGUR      |\n|________________|\n");
+                    System.out.println(" ________________\n|                |\n|      BYE       |\n|________________|\n");
                     break;
-                case 1: // 1. Añadir UNIDAD DIDACTICA
-                    controller.newTeachingUnit(teachingUnit);
+                case 1: // [ 1 ] Create a new TEACHING UNIT
+                    createTeachingUnit(controller);
                     break;
-                case 2: // 2. Crear ENUNCIADO
+                case 2: // [ 2 ] Create a new exam STATEMENT
                    controller.newExamStatement(examStatement);
                     break;
-                case 3: // 3. Crear CONVOCATORIA
+                case 3: // [ 3 ] Create a exam SESSION
                     controller.newExamSession(examSession);
                     break;
-                case 4: // 4. Buscar ENUNCIADOS por UNIDAD DIDACTICA
+                case 4: // [ 4 ] Consult the exam STATEMENT by TEACHING UNIT
                     controller.consultStatementByTeachingUnit(teachingUnit);
                     break;
-                case 5: // 5. Buscar en que CONVOCATORIAS ha sido usado un ENUNCIADO
+                case 5: // [ 5 ] Consult in which SESSIONS a specific STATEMENT has been used
                     controller.consultSessionsByStatement(examStatement);
                     break;
             }

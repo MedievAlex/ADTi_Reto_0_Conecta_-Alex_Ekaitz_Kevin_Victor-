@@ -13,11 +13,21 @@ public class Controller {
 
     // Prepare the DB Implementation
     ModelDAO dao = new DBImplementation();
-
+    
+    /**
+     * Verifies if the TEACHING UNIT (UnidadDIdactica) exists
+     *
+     * @param teachingUnit
+     * @return teachingUnit
+     */
+    public boolean verifyTeachingUnit(TeachingUnit teachingUnit){
+        return dao.verifyTeachingUnit(teachingUnit);
+    }
+    
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
      *
-     * @parameter teachingUnit
+     * @param teachingUnit
      * @return teachingUnit
      */
     public boolean newTeachingUnit(TeachingUnit teachingUnit) {
@@ -28,7 +38,7 @@ public class Controller {
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
      *
-     * @parameter examStatement
+     * @param examStatement
      * @return examStatement
      */
     public boolean newExamStatement(ExamStatement examStatement) {
@@ -39,7 +49,7 @@ public class Controller {
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)
      *
-     * @parameter examSession
+     * @param examSession
      * @return examSession
      */
     public boolean newExamSession(ExamSession examSession) {
@@ -50,7 +60,7 @@ public class Controller {
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
      *
-     * @parameter teachingUnit
+     * @param teachingUnit
      * @return teachingUnit
      */
     public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit) {
@@ -61,7 +71,7 @@ public class Controller {
      * [ 5 ] Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
      * STATEMENT (Enunciado) has been used
      *
-     * @parameter examSession
+     * @param examSession
      * @return examStatement
      */
     public boolean consultSessionsByStatement(ExamStatement examStatement) {
