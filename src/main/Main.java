@@ -21,7 +21,7 @@ public class Main {
         System.out.println("[ 4 ] Consult the exam STATEMENT by TEACHING UNIT");
         System.out.println("[ 5 ] Consult in which SESSIONS a specific STATEMENT has been used");
         System.out.print("Choose: ");
-        return Utilidades.leerInt(1, 5);
+        return Utilidades.leerInt(0, 5);
     }
     
     public static void main(String[] args) {
