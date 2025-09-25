@@ -19,15 +19,29 @@ public class ExamStatement {
      */
     public ExamStatement() {
         this.id = 0;
-        this.description = "";
+        this.description = " ";
         this.statement_level = null;
         this.avaiable = null;
-        this.ruta = "";
+        this.ruta = " ";
     }
-
+    
     /**
      * Parametized constructor to create the EXAM STATEMENT with the necessary
      * variables to verify if it exists.
+     *
+     * @param id
+     */
+    public ExamStatement(int id) {
+        this.id = id;
+        this.description = " ";
+        this.statement_level = null;
+        this.avaiable = null;
+        this.ruta = " ";
+    }
+    
+    /**
+     * Parametized constructor to create the EXAM STATEMENT with all the
+     * variables.
      *
      * @param id
      * @param description

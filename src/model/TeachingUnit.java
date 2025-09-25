@@ -17,15 +17,28 @@ public class TeachingUnit {
      * Empty constructor.
      */
     public TeachingUnit() {
-        this.acronim = "";
-        this.title = "";
-        this.evaluation = "";
-        this.description = "";
+        this.acronim = " ";
+        this.title = " ";
+        this.evaluation = " ";
+        this.description = " ";
     }
 
     /**
      * Parametized constructor to create the TEACHING UNIT with the necessary
      * variables to verify if it exists.
+     *
+     * @param acronim
+     */
+    public TeachingUnit(String acronim) {
+        this.acronim = acronim;
+        this.title = " ";
+        this.evaluation = " ";
+        this.description = " ";
+    }
+
+    /**
+     * Parametized constructor to create the TEACHING UNIT with all the
+     * variables.
      *
      * @param acronim
      * @param title

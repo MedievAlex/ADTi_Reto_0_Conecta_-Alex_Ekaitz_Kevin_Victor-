@@ -29,8 +29,8 @@ public class ExamSession {
     }
 
     /**
-     * Parametized constructor to create the EXAM SESSION with the necessary
-     * variables to verify if it exists.
+     * Parametized constructor to create the EXAM SESSION with all the
+     * variables.
      *
      * @param convocatoria
      * @param description

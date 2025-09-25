@@ -20,7 +20,15 @@ public interface ModelDAO {
      * @return
      */
     public boolean newTeachingUnit(TeachingUnit teachingUnit);
-
+   
+    /**
+     * Verifies if the EXAM STATEMENT (Enunciado) exists
+     *
+     * @param examStatement
+     * @return
+     */
+    public boolean verifyExamStatement(ExamStatement examStatement);
+    
     /**
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
