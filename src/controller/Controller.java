@@ -36,7 +36,6 @@ public class Controller {
 
     /**
      * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
-     *
      */
     public void showAllTeachingUnits() {      
     }    
@@ -64,7 +63,6 @@ public class Controller {
 
     /**
      * Shows all the EXAM STATEMENT's (Enunciado) on the database
-     *
      */
     public void showAllExamStatements() {      
     }

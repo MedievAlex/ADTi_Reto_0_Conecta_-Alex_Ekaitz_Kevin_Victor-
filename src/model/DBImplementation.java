@@ -37,7 +37,7 @@ public class DBImplementation implements ModelDAO {
     final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE acronim = ?";
     final String SQLSELECT_ALLTEACHINGUNITS = "SELECT * FROM TeachingUnit";
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
-    final String SQLSELECT_ALLSTATEMENTS = "SELECT * FROM ExamStatement";
+    final String SQLSELECT_ALLEXAMSTATEMENTS = "SELECT * FROM ExamStatement";
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
     /**
@@ -129,21 +129,21 @@ public class DBImplementation implements ModelDAO {
         }
         return register;
     }
-
+   
     /**
-     * Method that shows all the existing teaching units.
+     * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
      */
     public void showAllTeachingUnits (){
         // Open connection and checks all the existing units.
         this.openConnection();
-        ResultSet rs= null;
+        ResultSet rs = null;
         
         try{
             // Prepare the SQL query
             stmt = con.prepareStatement(SQLSELECT_ALLTEACHINGUNITS);
             rs = stmt.executeQuery();
             while(rs.next()){
-                TeachingUnit teachingUnit= new TeachingUnit();
+                TeachingUnit teachingUnit = new TeachingUnit();
                 teachingUnit.setAcronim(rs.getString("ACRONIM"));
                 teachingUnit.setTitle(rs.getString("TITLE"));
                 teachingUnit.setEvaluation(rs.getString("EVALUATION"));
@@ -157,6 +157,7 @@ public class DBImplementation implements ModelDAO {
             e.printStackTrace();
         }
     }
+    
     /**
      * Verifyes if the EXAM STATEMENT (UnidadDIdactica) already exist.
      *
@@ -232,19 +233,19 @@ public class DBImplementation implements ModelDAO {
     }
 
     /*
-    * Method that shows all the existing statements.
+    * Shows all the EXAM STATEMENT's (Enunciado) on the database
     */
     public void showAllStatements(){
         // Open connection and checks all the existing units.
         this.openConnection();
-        ResultSet rs= null;
+        ResultSet rs = null;
         
         try{
             // Prepare the SQL query
-            stmt = con.prepareStatement(SQLSELECT_ALLTEACHINGUNITS);
+            stmt = con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS);
             rs = stmt.executeQuery();
             while(rs.next()){
-                ExamStatement examStatement= new ExamStatement();
+                ExamStatement examStatement = new ExamStatement();
                 examStatement.setId(rs.getInt("ID"));
                 examStatement.setDescription(rs.getString("DESCRIPTION"));
                 //examStatement.setStatementLevel(rs.getStatement_Level(""));
@@ -259,6 +260,7 @@ public class DBImplementation implements ModelDAO {
             e.printStackTrace();
         }
     }
+    
     /**
      * Verifyes if the EXAM SESSION (Convocatoria) already exist.
      *
@@ -291,6 +293,19 @@ public class DBImplementation implements ModelDAO {
         return exists;
     }
 
+       /**
+     * Creates a insert on the StatementUnit table
+     *
+     * @param teachingUnit
+     * @param examStatement
+     * @return register
+     */
+    public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) {
+        boolean register = false;
+        
+        return register;
+    }
+    
     /**
      * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
      * (Enunciado).

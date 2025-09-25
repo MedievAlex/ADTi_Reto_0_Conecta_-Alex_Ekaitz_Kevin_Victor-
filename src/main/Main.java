@@ -106,7 +106,7 @@ public class Main {
             }
         } while (exists);
         controller.newExamStatement(examStatement);
-        controller.newStatementForUnit();
+        controller.newStatementForUnit(teachingUnit, examStatement);
     }
 
     /**
