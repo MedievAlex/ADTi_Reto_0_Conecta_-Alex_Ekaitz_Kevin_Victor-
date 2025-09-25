@@ -37,6 +37,7 @@ public class DBImplementation implements ModelDAO {
     final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE acronim = ?";
     final String SQLSELECT_ALLTEACHINGUNITS = "SELECT * FROM TeachingUnit";
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
+    final String SQLSELECT_ALLSTATEMENTS = "SELECT * FROM ExamStatement";
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
     /**
@@ -130,6 +131,33 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
+     * Method that shows all the existing teaching units.
+     */
+    public void showAllTeachingUnits (){
+        // Open connection and checks all the existing units.
+        this.openConnection();
+        ResultSet rs= null;
+        
+        try{
+            // Prepare the SQL query
+            stmt = con.prepareStatement(SQLSELECT_ALLTEACHINGUNITS);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                TeachingUnit teachingUnit= new TeachingUnit();
+                teachingUnit.setAcronim(rs.getString("ACRONIM"));
+                teachingUnit.setTitle(rs.getString("TITLE"));
+                teachingUnit.setEvaluation(rs.getString("EVALUATION"));
+                teachingUnit.setDescription(rs.getString("DESCRIPTION"));
+                System.out.println(teachingUnit);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    /**
      * Verifyes if the EXAM STATEMENT (UnidadDIdactica) already exist.
      *
      * @param examStatement
@@ -203,6 +231,34 @@ public class DBImplementation implements ModelDAO {
         return register;
     }
 
+    /*
+    * Method that shows all the existing statements.
+    */
+    public void showAllStatements(){
+        // Open connection and checks all the existing units.
+        this.openConnection();
+        ResultSet rs= null;
+        
+        try{
+            // Prepare the SQL query
+            stmt = con.prepareStatement(SQLSELECT_ALLTEACHINGUNITS);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                ExamStatement examStatement= new ExamStatement();
+                examStatement.setId(rs.getInt("ID"));
+                examStatement.setDescription(rs.getString("DESCRIPTION"));
+                //examStatement.setStatementLevel(rs.getStatement_Level(""));
+                examStatement.setAvaiable(rs.getBoolean("AVAIABLE"));
+                examStatement.setRuta(rs.getString("RUTA"));
+                System.out.println(examStatement);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * Verifyes if the EXAM SESSION (Convocatoria) already exist.
      *
