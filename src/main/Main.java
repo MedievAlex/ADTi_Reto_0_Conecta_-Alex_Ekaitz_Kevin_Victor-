@@ -69,8 +69,6 @@ public class Main {
      * @param cont
      */
     public static void checkStatementByTeachingUnit(Controller cont) {
-        TeachingUnit teachingUnit = new TeachingUnit();
-
         cont.consultStatementByTeachingUnit();
     }
 
@@ -81,9 +79,7 @@ public class Main {
      * @param cont
      */
     public static void checkSessionsByStatement(Controller cont) {
-        ExamStatement examStatement = new ExamStatement();
-
-        cont.consultSessionsByStatement(examStatement);
+        cont.consultSessionsByStatement();
     }
 
     /**
