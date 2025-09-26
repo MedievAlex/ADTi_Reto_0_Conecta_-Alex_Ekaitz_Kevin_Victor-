@@ -1,10 +1,7 @@
 package main;
 
 import controller.Controller;
-import java.sql.Date;
-import model.ExamSession;
 import model.ExamStatement;
-import model.StatementLevel;
 import model.TeachingUnit;
 import utilidades.Utilidades;
 
@@ -32,70 +29,13 @@ public class Main {
     }
 
     /**
-     * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist first to
-     * create it after.
+     * Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
+     * (UnidadDIdactica).
      *
      * @param cont
      */
-    public static void createTeachingUnit(Controller cont) {
-        System.out.print("Enter the ACRONIM: ");
-        TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-        if (!cont.verifyTeachingUnit(teachingUnit)) {
-            System.out.print("Enter the TITLE: ");
-            teachingUnit.setTitle(Utilidades.introducirCadena());
-            System.out.print("Enter the EVALUATION: ");
-            teachingUnit.setEvaluation(Utilidades.introducirCadena());
-            System.out.print("Enter the DESCRIPTION: ");
-            teachingUnit.setDescription(Utilidades.introducirCadena());
-
-            cont.newTeachingUnit(teachingUnit);
-        } else {
-            System.out.print("[ ERROR ] That Teaching Unit already exist.");
-        }
-    }
-
-    /**
-     * Create an EXAM STATEMENT (Enunciado) by adding an existent teaching units
-     * (UnidadDidactica).
-     *
-     * @param cont
-     */
-    public static void createExamStatement(Controller cont) {
-        ExamStatement examStatement = new ExamStatement();
+    public static void checkStatementByTeachingUnit(Controller cont) {
         boolean exists = true;
-
-        System.out.print("Enter the DESCRIPTION: ");
-        examStatement.setDescription(Utilidades.introducirCadena());
-        System.out.println("[ LEVELS ]");
-        System.out.println("1 - ALTO");
-        System.out.println("2 - MEDIO");
-        System.out.println("3 - BAJO");
-        System.out.print("Enter the NIVEL: ");
-        switch (Utilidades.leerInt(1, 3)) {
-            case 1:
-                examStatement.setStatementLevel(StatementLevel.ALTO);
-                break;
-            case 2:
-                examStatement.setStatementLevel(StatementLevel.MEDIO);
-                break;
-            case 3:
-                examStatement.setStatementLevel(StatementLevel.BAJO);
-                break;
-        }
-        System.out.print("Enter the AVAILABILITY (Y/N): ");
-        switch (Utilidades.leerChar('Y', 'N')) {
-            case 'Y':
-                examStatement.setAvailable(true);
-                break;
-            case 'N':
-                examStatement.setAvailable(false);
-                break;
-        }
-        System.out.print("Enter the RUTA: ");
-        examStatement.setRuta(Utilidades.introducirCadena());
-
-        System.out.println("[ AVAILABLE TEACHING UNITS ]");
-        cont.showAllTeachingUnits();
 
         do {
             System.out.print("Add the TEACHING UNIT's ACRONIM: ");
@@ -104,67 +44,9 @@ public class Main {
             if (exists) {
                 System.out.print("[ ERROR ] Invalid ACRONIM");
             } else {
-                cont.newExamStatement(examStatement);
-                cont.newStatementForUnit(teachingUnit, examStatement);
+                cont.consultStatementByTeachingUnit();
             }
         } while (exists);
-    }
-
-    /**
-     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
-     * (Enunciado).
-     *
-     * @param cont
-     */
-    public static void createExamSession(Controller cont) {
-        ExamSession examSession = new ExamSession();
-        boolean exists = true;
-
-        System.out.print("Enter the CONVOCATORIA: ");
-        examSession.setConvocatoria(Utilidades.introducirCadena());
-        System.out.print("Enter the DESCRIPTION: ");
-        examSession.setDescription(Utilidades.introducirCadena());
-        System.out.print("Enter the DESCRIPTION: ");
-        examSession.setSession_date(Date.valueOf(Utilidades.leerFechaAMD()));
-        System.out.print("Enter the COURSE: ");
-        examSession.setCourse(Utilidades.introducirCadena());
-
-        System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
-        cont.showAllExamStatements();
-
-        do {
-            System.out.print("Add the EXAM STATEMENTS's ID: ");
-            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
-            exists = cont.verifyExamStatement(examStatement);
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ID");
-            }
-        } while (exists);
-        cont.newExamSession(examSession);
-    }
-
-    /**
-     * Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
-     * (UnidadDIdactica).
-     *
-     * @param cont
-     */
-    public static void checkStatementByTeachingUnit(Controller cont) {
-        TeachingUnit teachingUnit = new TeachingUnit();
-
-        cont.consultStatementByTeachingUnit(teachingUnit);
-    }
-
-    /**
-     * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM STATEMENT
-     * (Enunciado) has been used.
-     *
-     * @param cont
-     */
-    public static void checkSessionsByStatement(Controller cont) {
-        ExamStatement examStatement = new ExamStatement();
-
-        cont.consultSessionsByStatement(examStatement);
     }
 
     /**
@@ -186,19 +68,19 @@ public class Main {
                     System.out.println(" ________________\n|                |\n|      BYE       |\n|________________|\n");
                     break;
                 case 1: // [ 1 ] Create a new TEACHING UNIT
-                    createTeachingUnit(cont);
+                    cont.newTeachingUnit();
                     break;
-                case 2: // [ 2 ] Create a new exam STATEMENT
-                    createExamStatement(cont);
+                case 2: // [ 2 ] Create a new EXAM STATEMENT
+                    cont.newExamStatement();
                     break;
-                case 3: // [ 3 ] Create a exam SESSION
-                    createExamSession(cont);
+                case 3: // [ 3 ] Create a EXAM SESSION
+                    cont.newExamSession();
                     break;
-                case 4: // [ 4 ] Consult the exam STATEMENT by TEACHING UNIT
-                    checkStatementByTeachingUnit(cont);
+                case 4: // [ 4 ] Consult the EXAM STATEMENT by TEACHING UNIT
+                    cont.consultStatementByTeachingUnit();
                     break;
-                case 5: // [ 5 ] Consult in which SESSIONS a specific STATEMENT has been used
-                    checkSessionsByStatement(cont);
+                case 5: // [ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used
+                    cont.consultSessionsByStatement();
                     break;
             }
         } while (opcion != 0);
