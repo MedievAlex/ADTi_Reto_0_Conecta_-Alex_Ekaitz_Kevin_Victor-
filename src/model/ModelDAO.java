@@ -72,10 +72,9 @@ public interface ModelDAO {
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
      *
-     * @param teachingUnit
      * @return
      */
-    public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit);
+    public TeachingUnit consultStatementByTeachingUnit();
 
     /**
      * [ 5 ] Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM

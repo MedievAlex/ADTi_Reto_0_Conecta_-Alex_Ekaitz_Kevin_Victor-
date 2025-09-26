@@ -93,11 +93,10 @@ public class Controller {
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
      *
-     * @param teachingUnit
      * @return dao.consultStatementByTeachingUnit(teachingUnit)
      */
-    public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit) {
-        return dao.consultStatementByTeachingUnit(teachingUnit);
+    public void consultStatementByTeachingUnit() {
+        dao.consultStatementByTeachingUnit();
     }
 
     /**

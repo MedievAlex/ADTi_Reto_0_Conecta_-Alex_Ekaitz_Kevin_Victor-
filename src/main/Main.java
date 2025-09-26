@@ -152,7 +152,7 @@ public class Main {
     public static void checkStatementByTeachingUnit(Controller cont) {
         TeachingUnit teachingUnit = new TeachingUnit();
 
-        cont.consultStatementByTeachingUnit(teachingUnit);
+        cont.consultStatementByTeachingUnit();
     }
 
     /**
