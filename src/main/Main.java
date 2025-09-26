@@ -29,24 +29,61 @@ public class Main {
     }
 
     /**
+     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
+     * (Enunciado).
+     *
+     * @param cont
+     */
+  
+    /*public static void createExamSession(Controller cont) {
+        ExamSession examSession = new ExamSession();
+        boolean exists = true;
+
+        System.out.print("Enter the CONVOCATORIA: ");
+        examSession.setConvocatoria(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setDescription(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setSession_date(Date.valueOf(Utilidades.leerFechaAMD()));
+        System.out.print("Enter the COURSE: ");
+        examSession.setCourse(Utilidades.introducirCadena());
+
+        System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
+        cont.showAllExamStatements();
+
+        do {
+            System.out.print("Add the EXAM STATEMENTS's ID: ");
+            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
+            exists = cont.verifyExamStatement(examStatement);
+            if (exists) {
+                System.out.print("[ ERROR ] Invalid ID");
+            }
+        } while (exists);
+        cont.newExamSession(examSession);
+    }*/
+
+    /**
      * Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica).
      *
      * @param cont
      */
     public static void checkStatementByTeachingUnit(Controller cont) {
-        boolean exists = true;
+        TeachingUnit teachingUnit = new TeachingUnit();
 
-        do {
-            System.out.print("Add the TEACHING UNIT's ACRONIM: ");
-            TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-            exists = cont.verifyTeachingUnit(teachingUnit);
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ACRONIM");
-            } else {
-                cont.consultStatementByTeachingUnit();
-            }
-        } while (exists);
+        cont.consultStatementByTeachingUnit();
+    }
+
+    /**
+     * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM STATEMENT
+     * (Enunciado) has been used.
+     *
+     * @param cont
+     */
+    public static void checkSessionsByStatement(Controller cont) {
+        ExamStatement examStatement = new ExamStatement();
+
+        cont.consultSessionsByStatement(examStatement);
     }
 
     /**

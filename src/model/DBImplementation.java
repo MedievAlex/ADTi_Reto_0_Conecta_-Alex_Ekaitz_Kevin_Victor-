@@ -44,11 +44,8 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
-    final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "";
+    final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
     final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
-
-    final String PRUEBA2="";
-    final String PRUEBA = "";
 
     /**
      * Declare implementation constructor
@@ -416,12 +413,41 @@ public class DBImplementation implements ModelDAO {
      * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica).
      *
-     * @param teachingUnit
-     * @return user
      */
     @Override
     public void consultStatementByTeachingUnit() {
-        return true;
+        TeachingUnit teachingUnit;
+        boolean exists = false;
+        ResultSet rs = null;
+        
+        showAllTeachingUnits();
+        
+        do {
+            System.out.print("Enter the acronim of a teaching unit: ");
+            teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
+            
+            exists = verifyTeachingUnit(teachingUnit);
+            
+            if (!exists) {
+                System.out.print("The acronim entered is not registered");
+            }
+        } while(!exists);
+        
+        this.openConnection();
+        
+        try {
+            stmt = con.prepareStatement(SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT);
+            stmt.setString(1, teachingUnit.getAcronim());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                System.out.print(new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5)));
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("An error has occurred when attempting to list theaching units.");
+            e.printStackTrace();
+        }
     }
 
     /**
