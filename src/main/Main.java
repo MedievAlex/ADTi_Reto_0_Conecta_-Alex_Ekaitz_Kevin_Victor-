@@ -23,10 +23,10 @@ public class Main {
         System.out.println(" ________________\n|                |\n|      MAIN      |\n|      MENU      |\n|________________|\n");
         System.out.println("[ 0 ] EXIT");
         System.out.println("[ 1 ] Create a new TEACHING UNIT");
-        System.out.println("[ 2 ] Create a new exam STATEMENT");
-        System.out.println("[ 3 ] Create a exam SESSION");
-        System.out.println("[ 4 ] Consult the exam STATEMENT by TEACHING UNIT");
-        System.out.println("[ 5 ] Consult in which SESSIONS a specific STATEMENT has been used");
+        System.out.println("[ 2 ] Create a new EXAM STATEMENT");
+        System.out.println("[ 3 ] Create a EXAM SESSION");
+        System.out.println("[ 4 ] Consult the EXAM STATEMENT by TEACHING UNIT");
+        System.out.println("[ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used");
         System.out.print("Choose: ");
         return Utilidades.leerInt(0, 5);
     }
@@ -35,12 +35,12 @@ public class Main {
      * Verifyes if the TEACHING UNIT (UnidadDIdactica) already exist first to
      * create it after.
      *
-     * @param controller
+     * @param cont
      */
-    public static void createTeachingUnit(Controller controller) {
+    public static void createTeachingUnit(Controller cont) {
         System.out.print("Enter the ACRONIM: ");
         TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-        if (!controller.verifyTeachingUnit(teachingUnit)) {
+        if (!cont.verifyTeachingUnit(teachingUnit)) {
             System.out.print("Enter the TITLE: ");
             teachingUnit.setTitle(Utilidades.introducirCadena());
             System.out.print("Enter the EVALUATION: ");
@@ -48,7 +48,7 @@ public class Main {
             System.out.print("Enter the DESCRIPTION: ");
             teachingUnit.setDescription(Utilidades.introducirCadena());
 
-            controller.newTeachingUnit(teachingUnit);
+            cont.newTeachingUnit(teachingUnit);
         } else {
             System.out.print("[ ERROR ] That Teaching Unit already exist.");
         }
@@ -58,9 +58,9 @@ public class Main {
      * Create an EXAM STATEMENT (Enunciado) by adding an existent teaching units
      * (UnidadDidactica).
      *
-     * @param controller
+     * @param cont
      */
-    public static void createExamStatement(Controller controller) {
+    public static void createExamStatement(Controller cont) {
         ExamStatement examStatement = new ExamStatement();
         boolean exists = true;
 
@@ -95,17 +95,17 @@ public class Main {
         examStatement.setRuta(Utilidades.introducirCadena());
 
         System.out.println("[ AVAILABLE TEACHING UNITS ]");
-        controller.showAllTeachingUnits();
+        cont.showAllTeachingUnits();
 
         do {
             System.out.print("Add the TEACHING UNIT's ACRONIM: ");
             TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-            exists = controller.verifyTeachingUnit(teachingUnit);
+            exists = cont.verifyTeachingUnit(teachingUnit);
             if (exists) {
                 System.out.print("[ ERROR ] Invalid ACRONIM");
             } else {
-                controller.newExamStatement(examStatement);
-                controller.newStatementForUnit(teachingUnit, examStatement);
+                cont.newExamStatement(examStatement);
+                cont.newStatementForUnit(teachingUnit, examStatement);
             }
         } while (exists);
     }
@@ -114,9 +114,9 @@ public class Main {
      * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
      * (Enunciado).
      *
-     * @param controller
+     * @param cont
      */
-    public static void createExamSession(Controller controller) {
+    public static void createExamSession(Controller cont) {
         ExamSession examSession = new ExamSession();
         boolean exists = true;
 
@@ -130,41 +130,41 @@ public class Main {
         examSession.setCourse(Utilidades.introducirCadena());
 
         System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
-        controller.showAllExamStatements();
+        cont.showAllExamStatements();
 
         do {
             System.out.print("Add the EXAM STATEMENTS's ID: ");
             ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
-            exists = controller.verifyExamStatement(examStatement);
+            exists = cont.verifyExamStatement(examStatement);
             if (exists) {
                 System.out.print("[ ERROR ] Invalid ID");
             }
         } while (exists);
-        controller.newExamSession(examSession);
+        cont.newExamSession(examSession);
     }
 
     /**
      * Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica).
      *
-     * @param controller
+     * @param cont
      */
-    public static void checkStatementByTeachingUnit(Controller controller) {
+    public static void checkStatementByTeachingUnit(Controller cont) {
         TeachingUnit teachingUnit = new TeachingUnit();
 
-        controller.consultStatementByTeachingUnit(teachingUnit);
+        cont.consultStatementByTeachingUnit(teachingUnit);
     }
 
     /**
      * Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM STATEMENT
      * (Enunciado) has been used.
      *
-     * @param controller
+     * @param cont
      */
-    public static void checkSessionsByStatement(Controller controller) {
+    public static void checkSessionsByStatement(Controller cont) {
         ExamStatement examStatement = new ExamStatement();
 
-        controller.consultSessionsByStatement(examStatement);
+        cont.consultSessionsByStatement(examStatement);
     }
 
     /**
@@ -173,7 +173,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Controller cont = new Controller();
         int opcion = 0;
 
         do {
@@ -186,19 +186,19 @@ public class Main {
                     System.out.println(" ________________\n|                |\n|      BYE       |\n|________________|\n");
                     break;
                 case 1: // [ 1 ] Create a new TEACHING UNIT
-                    createTeachingUnit(controller);
+                    createTeachingUnit(cont);
                     break;
                 case 2: // [ 2 ] Create a new exam STATEMENT
-                    createExamStatement(controller);
+                    createExamStatement(cont);
                     break;
                 case 3: // [ 3 ] Create a exam SESSION
-                    createExamSession(controller);
+                    createExamSession(cont);
                     break;
                 case 4: // [ 4 ] Consult the exam STATEMENT by TEACHING UNIT
-                    checkStatementByTeachingUnit(controller);
+                    checkStatementByTeachingUnit(cont);
                     break;
                 case 5: // [ 5 ] Consult in which SESSIONS a specific STATEMENT has been used
-                    checkSessionsByStatement(controller);
+                    checkSessionsByStatement(cont);
                     break;
             }
         } while (opcion != 0);
