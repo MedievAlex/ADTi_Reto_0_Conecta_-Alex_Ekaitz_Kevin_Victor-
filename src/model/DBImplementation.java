@@ -44,6 +44,8 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "";
     final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
+
+    final String PRUEBA2="";
     final String PRUEBA = "";
 
     /**
