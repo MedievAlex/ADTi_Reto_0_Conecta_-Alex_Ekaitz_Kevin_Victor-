@@ -429,7 +429,7 @@ public class DBImplementation implements ModelDAO {
             exists = verifyTeachingUnit(teachingUnit);
             
             if (!exists) {
-                System.out.print("The acronim entered is not registered");
+                System.out.print("The acronim entered is not registered\n");
             }
         } while(!exists);
         
@@ -440,7 +440,7 @@ public class DBImplementation implements ModelDAO {
             stmt.setString(1, teachingUnit.getAcronim());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.print(new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5)));
+                System.out.print(new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5)) + "\n");
             }
             stmt.close();
             con.close();
