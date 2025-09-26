@@ -26,18 +26,16 @@ public class Controller {
 
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
-     *
-     * @param teachingUnit
-     * @return dao.newTeachingUnit(teachingUnit)
      */
-    public boolean newTeachingUnit(TeachingUnit teachingUnit) {
-        return dao.newTeachingUnit(teachingUnit);
+    public void newTeachingUnit() {
+       dao.newTeachingUnit();
     }
 
     /**
      * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
      */
-    public void showAllTeachingUnits() {      
+    public void showAllTeachingUnits() {
+        dao.showAllTeachingUnits();
     }    
     
     /**
@@ -53,18 +51,16 @@ public class Controller {
     /**
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
-     *
-     * @param examStatement
-     * @return dao.newExamStatement(examStatement)
      */
-    public boolean newExamStatement(ExamStatement examStatement) {
-        return dao.newExamStatement(examStatement);
+    public void newExamStatement() {
+        dao.newExamStatement();
     }
 
     /**
      * Shows all the EXAM STATEMENT's (Enunciado) on the database
      */
-    public void showAllExamStatements() {      
+    public void showAllExamStatements() {  
+        dao.showAllExamStatements();
     }
     
    /**
@@ -81,19 +77,14 @@ public class Controller {
     /**
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)
-     *
-     * @param examSession
-     * @return dao.newExamSession(examSession)
      */
-    public boolean newExamSession(ExamSession examSession) {
-        return dao.newExamSession(examSession);
+    public void newExamSession() {
+        dao.newExamSession();
     }
 
     /**
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
-     *
-     * @return dao.consultStatementByTeachingUnit(teachingUnit)
      */
     public void consultStatementByTeachingUnit() {
         dao.consultStatementByTeachingUnit();
@@ -102,12 +93,9 @@ public class Controller {
     /**
      * [ 5 ] Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
      * STATEMENT (Enunciado) has been used
-     *
-     * @param examStatement
-     * @return dao.consultSessionsByStatement(examStatement)
      */
-    public boolean consultSessionsByStatement(ExamStatement examStatement) {
-        return dao.consultSessionsByStatement(examStatement);
+    public void consultSessionsByStatement() {
+        dao.consultSessionsByStatement();
     }
 
 }

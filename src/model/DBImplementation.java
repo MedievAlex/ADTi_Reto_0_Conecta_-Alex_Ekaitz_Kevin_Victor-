@@ -38,10 +38,10 @@ public class DBImplementation implements ModelDAO {
      */
     final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE acronim = ?";
     final String SQLSELECT_ALLTEACHINGUNITS = "SELECT * FROM TeachingUnit";
-    
+
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
     final String SQLSELECT_ALLEXAMSTATEMENTS = "SELECT * FROM ExamStatement";
-    
+
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
@@ -113,10 +113,18 @@ public class DBImplementation implements ModelDAO {
      * @return register
      */
     @Override
-    public boolean newTeachingUnit(TeachingUnit teachingUnit) {
-        boolean register = false;
+    public void newTeachingUnit() {
 
+        System.out.print("Enter the ACRONIM: ");
+        TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
         if (!verifyTeachingUnit(teachingUnit)) {
+            System.out.print("Enter the TITLE: ");
+            teachingUnit.setTitle(Utilidades.introducirCadena());
+            System.out.print("Enter the EVALUATION: ");
+            teachingUnit.setEvaluation(Utilidades.introducirCadena());
+            System.out.print("Enter the DESCRIPTION: ");
+            teachingUnit.setDescription(Utilidades.introducirCadena());
+
             this.openConnection();
             try {
                 stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); //(ACRONIM, TITLE, EVALUATION, DESCRIPTION)
@@ -124,17 +132,18 @@ public class DBImplementation implements ModelDAO {
                 stmt.setString(2, teachingUnit.getTitle());
                 stmt.setString(3, teachingUnit.getEvaluation());
                 stmt.setString(4, teachingUnit.getDescription());
-                if (stmt.executeUpdate() > 0) {
-                    register = true;
-                }
+                
                 stmt.close();
                 con.close();
             } catch (SQLException e) {
                 System.out.println("An error has occurred when attempting to register the user.");
                 e.printStackTrace();
             }
+
+        } else {
+            System.out.print("[ ERROR ] That Teaching Unit already exist.");
         }
-        return register;
+
     }
 
     /**
@@ -207,38 +216,76 @@ public class DBImplementation implements ModelDAO {
      * @return register
      */
     @Override
-    public boolean newExamStatement(ExamStatement examStatement) {
-        boolean register = false;
+    public void newExamStatement() {
+        ExamStatement examStatement = new ExamStatement();
+        boolean exists = true;
 
-        if (!verifyExamStatement(examStatement)) {
-            this.openConnection();
-            try {
-                stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA)
-                stmt.setString(1, examStatement.getDescription());
-                switch (examStatement.getStatementLevel()) {
-                    case ALTO:
-                        stmt.setString(2, "ALTO");
-                        break;
-                    case MEDIO:
-                        stmt.setString(2, "MEDIO");
-                        break;
-                    case BAJO:
-                        stmt.setString(2, "BAJO");
-                        break;
-                }
-                stmt.setBoolean(3, examStatement.getAvailable());
-                stmt.setString(4, examStatement.getDescription());
-                if (stmt.executeUpdate() > 0) {
-                    register = true;
-                }
-                stmt.close();
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("An error has occurred when attempting to register the user.");
-                e.printStackTrace();
-            }
+        System.out.print("Enter the DESCRIPTION: ");
+        examStatement.setDescription(Utilidades.introducirCadena());
+        System.out.println("[ LEVELS ]");
+        System.out.println("1 - ALTO");
+        System.out.println("2 - MEDIO");
+        System.out.println("3 - BAJO");
+        System.out.print("Enter the NIVEL: ");
+        switch (Utilidades.leerInt(1, 3)) {
+            case 1:
+                examStatement.setStatementLevel(StatementLevel.ALTO);
+                break;
+            case 2:
+                examStatement.setStatementLevel(StatementLevel.MEDIO);
+                break;
+            case 3:
+                examStatement.setStatementLevel(StatementLevel.BAJO);
+                break;
         }
-        return register;
+        System.out.print("Enter the AVAILABILITY (Y/N): ");
+        switch (Utilidades.leerChar('Y', 'N')) {
+            case 'Y':
+                examStatement.setAvailable(true);
+                break;
+            case 'N':
+                examStatement.setAvailable(false);
+                break;
+        }
+        System.out.print("Enter the RUTA: ");
+        examStatement.setRuta(Utilidades.introducirCadena());
+
+        System.out.println("[ AVAILABLE TEACHING UNITS ]");
+        showAllTeachingUnits();
+
+        do {
+            System.out.print("Add the TEACHING UNIT's ACRONIM: ");
+            TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
+            exists = verifyTeachingUnit(teachingUnit);
+            if (exists) {
+                System.out.print("[ ERROR ] Invalid ACRONIM");
+            } else {
+                this.openConnection();
+                try {
+                    stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA)
+                    stmt.setString(1, examStatement.getDescription());
+                    switch (examStatement.getStatementLevel()) {
+                        case ALTO:
+                            stmt.setString(2, "ALTO");
+                            break;
+                        case MEDIO:
+                            stmt.setString(2, "MEDIO");
+                            break;
+                        case BAJO:
+                            stmt.setString(2, "BAJO");
+                            break;
+                    }
+                    stmt.setBoolean(3, examStatement.getAvailable());
+                    stmt.setString(4, examStatement.getDescription());                  
+                    stmt.close();
+                    con.close();
+                } catch (SQLException e) {
+                    System.out.println("An error has occurred when attempting to register the user.");
+                    e.printStackTrace();
+                }
+                newStatementForUnit(teachingUnit, examStatement);
+            }
+        } while (exists);
     }
 
     /**
@@ -256,9 +303,22 @@ public class DBImplementation implements ModelDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 ExamStatement examStatement = new ExamStatement();
+
                 examStatement.setId(rs.getInt("ID"));
                 examStatement.setDescription(rs.getString("DESCRIPTION"));
-                //examStatement.setStatementLevel(rs.getStatement_Level(""));
+
+                switch (rs.getString("STATEMENT_LEVEL")) {
+                    case "ALTO":
+                        examStatement.setStatementLevel(StatementLevel.ALTO);
+                        break;
+                    case "MEDIO":
+                        examStatement.setStatementLevel(StatementLevel.MEDIO);
+                        break;
+                    case "BAJO":
+                        examStatement.setStatementLevel(StatementLevel.BAJO);
+                        break;
+                }
+
                 examStatement.setAvailable(rs.getBoolean("AVAILABLE"));
                 examStatement.setRuta(rs.getString("RUTA"));
                 examStatement.toString();
@@ -307,9 +367,31 @@ public class DBImplementation implements ModelDAO {
      * @return register
      */
     @Override
-    public boolean newExamSession(ExamSession examSession) {
-        boolean register = false;
+    public void newExamSession() {
+        ExamSession examSession = new ExamSession();
+        boolean exists = true;
 
+        System.out.print("Enter the CONVOCATORIA: ");
+        examSession.setConvocatoria(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setDescription(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        examSession.setSession_date(java.sql.Date.valueOf(Utilidades.leerFechaAMD()));
+        System.out.print("Enter the COURSE: ");
+        examSession.setCourse(Utilidades.introducirCadena());
+
+        System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
+        showAllExamStatements();
+
+        do {
+            System.out.print("Add the EXAM STATEMENTS's ID: ");
+            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
+            exists = verifyExamStatement(examStatement);
+            if (exists) {
+                System.out.print("[ ERROR ] Invalid ID");
+            }
+        } while (exists);
+        
         this.openConnection();
         try {
             stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(CONVOCATORIA, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
@@ -318,23 +400,19 @@ public class DBImplementation implements ModelDAO {
             stmt.setDate(3, examSession.getSession_date());
             stmt.setString(4, examSession.getCourse());
             stmt.setInt(5, examSession.geteId());
-            if (stmt.executeUpdate() > 0) {
-                register = true;
-            }
+          
             stmt.close();
             con.close();
         } catch (SQLException e) {
             System.out.println("An error has occurred when attempting to register the user.");
             e.printStackTrace();
         }
-        return register;
     }
 
     /**
      * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica).
      *
-     * @return user
      */
     @Override
     public void consultStatementByTeachingUnit() {
@@ -380,37 +458,7 @@ public class DBImplementation implements ModelDAO {
      * @return true
      */
     @Override
-    public boolean consultSessionsByStatement(ExamStatement examStatement) {
+    public void consultSessionsByStatement() {
         return true;
     }
 }
-
-    //****************************EJEMPLO DE TIPO*******************************
-    /* Verify the user type (only used once the user is verified)
-  
-    public boolean verifyUserType(User user) {
-        // Open connection and declare a boolean to check if the user is an admin
-        boolean admin = false;
-        this.openConnection();
-
-        try {
-            // Prepares the SQL query
-            stmt = con.prepareStatement(SQLTYPE);
-            stmt.setString(1, user.getCodU());
-            // Executes the SQL query
-            ResultSet rs = stmt.executeQuery();
-            // If there is any result, the user exists, and they are an admin
-            if (rs.next() && rs.getString(1).equals("Admin")) {
-                admin = true;
-            }
-            // Closes the connection
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("The user couldn't be verified properly.");
-            e.printStackTrace();
-        }
-        return admin;
-    }
-     */
