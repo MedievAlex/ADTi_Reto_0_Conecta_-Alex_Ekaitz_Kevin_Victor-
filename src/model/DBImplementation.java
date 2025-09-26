@@ -284,6 +284,20 @@ public class DBImplementation implements ModelDAO {
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) {
         boolean register = false;
 
+        this.openConnection();
+        try{
+            stmt = con.prepareStatement(SQLINSERT_STATEMENTUNIT);
+            stmt.setString(1, teachingUnit.getAcronim());
+            stmt.setInt(2, examStatement.getId());
+            if(stmt.executeUpdate()>0){
+                register = true;
+            }
+            stmt.close();
+            con.close();
+        }catch (Exception e){
+            System.out.println("An error has ocurred when attempting to register the user");
+            e.printStackTrace();
+        }
         return register;
     }
 
