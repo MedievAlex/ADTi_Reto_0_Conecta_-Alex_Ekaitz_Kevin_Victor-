@@ -36,9 +36,14 @@ public class DBImplementation implements ModelDAO {
      */
     final String SQLSELECT_TEACHINGUNIT = "SELECT * FROM TeachingUnit WHERE acronim = ?";
     final String SQLSELECT_ALLTEACHINGUNITS = "SELECT * FROM TeachingUnit";
+    
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
     final String SQLSELECT_ALLEXAMSTATEMENTS = "SELECT * FROM ExamStatement";
+    
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
+
+    final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "";
+    final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
 
     /**
      * Declare implementation constructor
