@@ -44,7 +44,7 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
-    final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
+    final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ES_ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
     final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
 
     /**
