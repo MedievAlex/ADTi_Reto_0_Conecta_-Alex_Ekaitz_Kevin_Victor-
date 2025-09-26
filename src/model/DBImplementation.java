@@ -30,6 +30,7 @@ public class DBImplementation implements ModelDAO {
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)";
+    final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)";
 
     /**
      * SQL Queries: SELECTS
