@@ -31,6 +31,7 @@ public class DBImplementation implements ModelDAO {
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)";
+    final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)";
 
     /**
      * SQL Queries: SELECTS
@@ -45,6 +46,9 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "";
     final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
+
+    final String PRUEBA2="";
+    final String PRUEBA = "";
 
     /**
      * Declare implementation constructor
@@ -341,6 +345,20 @@ public class DBImplementation implements ModelDAO {
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) {
         boolean register = false;
 
+        this.openConnection();
+        try{
+            stmt = con.prepareStatement(SQLINSERT_STATEMENTUNIT);
+            stmt.setString(1, teachingUnit.getAcronim());
+            stmt.setInt(2, examStatement.getId());
+            if(stmt.executeUpdate()>0){
+                register = true;
+            }
+            stmt.close();
+            con.close();
+        }catch (Exception e){
+            System.out.println("An error has ocurred when attempting to register the user");
+            e.printStackTrace();
+        }
         return register;
     }
 
