@@ -459,6 +459,5 @@ public class DBImplementation implements ModelDAO {
      */
     @Override
     public void consultSessionsByStatement() {
-        return true;
     }
 }
