@@ -47,7 +47,7 @@
 ------> showAllExamStatements() [ ENUM Level need to be checked ]: ALEX
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
-------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) [ MISSING ]: VICTOR
+------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) VICTOR
 
 ------> newExamSession(ExamSession examSession)
 ---------> con.prepareStatement(SQLINSERT_EXAMSESSION)
