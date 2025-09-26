@@ -18,10 +18,10 @@
 ---------> cont.verifyExamStatement(examStatement)
 ---------> cont.newExamSession(examSession)
 
-------> checkStatementByTeachingUnit(Controller cont) [ MISSING ]
+------> checkStatementByTeachingUnit(Controller cont) [ MISSING ]: ALEX
 ---------> cont.consultStatementByTeachingUnit(teachingUnit)
 
-------> checkSessionsByStatement(Controller cont) [ MISSING ]
+------> checkSessionsByStatement(Controller cont) [ MISSING ]: ALEX
 ---------> cont.consultSessionsByStatement(examStatement)
 
 -> model
@@ -44,15 +44,15 @@
 ---------> verifyExamStatement(examStatement)
 ---------> con.prepareStatement(SQLINSERT_EXAMSTATEMENT)
 
-------> showAllExamStatements() [ ENUM Level need to be checked ]
+------> showAllExamStatements() [ ENUM Level need to be checked ]: ALEX
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
-------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) [ MISSING ]
+------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) [ MISSING ]: VICTOR
 
 ------> newExamSession(ExamSession examSession)
 ---------> con.prepareStatement(SQLINSERT_EXAMSESSION)
 
-------> consultStatementByTeachingUnit(TeachingUnit teachingUnit) [ MISSING ]
+------> consultStatementByTeachingUnit(TeachingUnit teachingUnit) [ MISSING ]: EKAITZ
 
-------> consultSessionsByStatement(ExamStatement examStatement) [ MISSING ]
+------> consultSessionsByStatement(ExamStatement examStatement) [ MISSING ]: KEVIN
 
