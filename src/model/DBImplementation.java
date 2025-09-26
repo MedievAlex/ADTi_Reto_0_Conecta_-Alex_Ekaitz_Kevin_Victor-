@@ -310,7 +310,7 @@ public class DBImplementation implements ModelDAO {
                 examStatement.setId(rs.getInt("ID"));
                 examStatement.setDescription(rs.getString("DESCRIPTION"));
 
-                switch (rs.getString("STATEMENT_LEVEL").equalsIgnoreCase()) {
+                switch (rs.getString("STATEMENT_LEVEL")) {
                     case "ALTO":
                         examStatement.setStatementLevel(StatementLevel.ALTO);
                         break;
