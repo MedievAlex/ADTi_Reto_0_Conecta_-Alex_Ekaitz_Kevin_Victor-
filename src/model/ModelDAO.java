@@ -15,15 +15,11 @@ public interface ModelDAO {
     
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
-     *
-     * @param teachingUnit
-     * @return
      */
-    public boolean newTeachingUnit(TeachingUnit teachingUnit);
+    public void newTeachingUnit();
    
      /**
      * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
-     *
      */
     public void showAllTeachingUnits();
     
@@ -38,15 +34,11 @@ public interface ModelDAO {
     /**
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
-     *
-     * @param examStatement
-     * @return
      */
-    public boolean newExamStatement(ExamStatement examStatement);
+    public void newExamStatement();
 
     /**
      * Shows all the EXAM STATEMENT's (Enunciado) on the database
-     *
      */
     public void showAllExamStatements();
         
@@ -55,35 +47,26 @@ public interface ModelDAO {
      *
      * @param teachingUnit
      * @param examStatement
-     * @return dao.newStatementForUnit(teachingUnit, examStatement)
+     * @return 
      */
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement);
     
     /**
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)
-     *
-     * @param examSession
-     * @return
      */
-    public boolean newExamSession(ExamSession examSession);
+    public void newExamSession();
 
     /**
      * [ 4 ] Consult the EXAM STATEMENT (Enunciado) by TEACHING UNIT
      * (UnidadDIdactica)
-     *
-     * @param teachingUnit
-     * @return
      */
-    public boolean consultStatementByTeachingUnit(TeachingUnit teachingUnit);
+    public void consultStatementByTeachingUnit();
 
     /**
      * [ 5 ] Consult in which EXAM SESSIONS (Convocatoria) a specific EXAM
      * STATEMENT (Enunciado) has been used
-     *
-     * @param examStatement
-     * @return
      */
-    public boolean consultSessionsByStatement(ExamStatement examStatement);
+    public void consultSessionsByStatement();
 
 }

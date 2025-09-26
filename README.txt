@@ -3,26 +3,21 @@
 -> main
 ---> Main
 
-------> createTeachingUnit(Controller cont)
----------> cont.verifyTeachingUnit(teachingUnit)
----------> cont.newTeachingUnit(teachingUnit)
+------> [ 1 ] Create a new TEACHING UNIT
+---------> cont.newTeachingUnit()
 
-------> createExamStatement(Controller cont)
----------> cont.showAllTeachingUnits()
----------> cont.verifyTeachingUnit(teachingUnit)
----------> cont.newExamStatement(examStatement)
----------> cont.newStatementForUnit(teachingUnit, examStatement)
+------> [ 2 ] Create a new EXAM STATEMENT
+---------> cont.newExamStatement()
+---------> cont.newStatementForUnit(teachingUnit, )
 
-------> createExamSession(Controller cont)
----------> cont.showAllExamStatements()
----------> cont.verifyExamStatement(examStatement)
----------> cont.newExamSession(examSession)
+------> [ 3 ] Create a EXAM SESSION
+---------> cont.newExamSession()
 
-------> checkStatementByTeachingUnit(Controller cont) [ MISSING ]: ALEX
----------> cont.consultStatementByTeachingUnit(teachingUnit)
+------> [ 4 ] Consult the EXAM STATEMENT by TEACHING UNIT
+---------> cont.consultStatementByTeachingUnit()
 
-------> checkSessionsByStatement(Controller cont) [ MISSING ]: ALEX
----------> cont.consultSessionsByStatement(examStatement)
+------> [ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used
+---------> cont.consultSessionsByStatement()
 
 -> model
 ---> DBImplementation
@@ -30,7 +25,7 @@
 ------> verifyTeachingUnit(TeachingUnit teachingUnit)
 ---------> con.prepareStatement(SQLSELECT_TEACHINGUNIT)
 
-------> newTeachingUnit(TeachingUnit teachingUnit)
+------> newTeachingUnit()
 ---------> verifyTeachingUnit(teachingUnit)
 ---------> con.prepareStatement(SQLINSERT_TEACHINGUNIT)
 
@@ -40,19 +35,26 @@
 ------> verifyExamStatement(ExamStatement examStatement)
 ---------> con.prepareStatement(SQLSELECT_EXAMSTATEMENT)
 
-------> newExamStatement(ExamStatement examStatement)
----------> verifyExamStatement(examStatement)
+------> newExamStatement()
+---------> showAllTeachingUnits()
+---------> verifyTeachingUnit(teachingUnit)
 ---------> con.prepareStatement(SQLINSERT_EXAMSTATEMENT)
+---------> newStatementForUnit(teachingUnit, examStatement)
 
-------> showAllExamStatements() [ ENUM Level need to be checked ]: ALEX
+------> showAllExamStatements()
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
-------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) VICTOR
+------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement)
 
-------> newExamSession(ExamSession examSession)
+------> newExamSession()
+---------> showAllExamStatements();
+---------> verifyExamStatement(examStatement);
 ---------> con.prepareStatement(SQLINSERT_EXAMSESSION)
 
-------> consultStatementByTeachingUnit(TeachingUnit teachingUnit) [ MISSING ]: EKAITZ
+------> consultStatementByTeachingUnit() [ MISSING ]: EKAITZ
+---------> showAllTeachingUnits()
+---------> verifyTeachingUnit(teachingUnit) 
 
-------> consultSessionsByStatement(ExamStatement examStatement) [ MISSING ]: KEVIN
-
+------> consultSessionsByStatement() [ MISSING ]: KEVIN
+---------> showAllExamStatements()
+---------> verifyExamStatement(examStatement)
