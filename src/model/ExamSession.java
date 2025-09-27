@@ -11,7 +11,7 @@ public class ExamSession {
     /**
      * Variables.
      */
-    private String convocatoria;
+    private String session;
     private String description;
     private Date session_date;
     private String course;
@@ -21,7 +21,7 @@ public class ExamSession {
      * Empty constructor.
      */
     public ExamSession() {
-        this.convocatoria = "";
+        this.session = "";
         this.description = "";
         this.session_date = Date.valueOf(LocalDate.now());
         this.course = "";
@@ -38,8 +38,8 @@ public class ExamSession {
      * @param course
      * @param eId
      */
-    public ExamSession(String convocatoria, String description, Date session_date, String course, int eId) {
-        this.convocatoria = convocatoria;
+    public ExamSession(String session, String description, Date session_date, String course, int eId) {
+        this.session = session;
         this.description = description;
         this.session_date = session_date;
         this.course = course;
@@ -52,8 +52,8 @@ public class ExamSession {
      *
      * @return convocatoria
      */
-    public String getConvocatoria() {
-        return convocatoria;
+    public String getSession() {
+        return session;
     }
 
     /**
@@ -62,8 +62,8 @@ public class ExamSession {
      *
      * @param convocatoria
      */
-    public void setConvocatoria(String convocatoria) {
-        this.convocatoria = convocatoria;
+    public void setSession(String session) {
+        this.session = session;
     }
 
     /**
@@ -152,7 +152,7 @@ public class ExamSession {
      */
     @Override
     public String toString() {
-        return "Convocatoria [" + "convocatoria: " + convocatoria + ", Descripcion: " + description + ", Date: " + session_date + ", Curso: " + course + ", ID Enunciado: " + eId + ']';
+        return "ExamSession [" + "Session: " + convocatoria + ", Description: " + description + ", Date: " + session_date + ", Course: " + course + ", Statement Id: " + eId + ']';
     }
 
 }
