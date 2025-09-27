@@ -133,6 +133,12 @@ public class DBImplementation implements ModelDAO {
                 stmt.setString(3, teachingUnit.getEvaluation());
                 stmt.setString(4, teachingUnit.getDescription());
                 
+                if (stmt.executeUpdate() == 0){
+                    System.out.println("It was not possible to create the new unit.");
+                } else {
+                    System.out.println("The teaching unit with " + teachingUnit.getAcronim() + " acronim was created correctly.");
+                }
+                
                 stmt.close();
                 con.close();
             } catch (SQLException e) {
@@ -398,7 +404,7 @@ public class DBImplementation implements ModelDAO {
             stmt.setDate(3, examSession.getSession_date());
             stmt.setString(4, examSession.getCourse());
             stmt.setInt(5, examSession.geteId());
-          
+            
             stmt.close();
             con.close();
         } catch (SQLException e) {
