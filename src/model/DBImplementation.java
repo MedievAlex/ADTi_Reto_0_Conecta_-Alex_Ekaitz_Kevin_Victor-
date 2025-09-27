@@ -147,7 +147,7 @@ public class DBImplementation implements ModelDAO {
             }
 
         } else {
-            System.out.print("[ ERROR ] That Teaching Unit already exist.");
+            System.out.println("[ ERROR ] That Teaching Unit already exist.");
         }
 
     }
