@@ -321,7 +321,7 @@ public class DBImplementation implements ModelDAO {
 
                 examStatement.setAvailable(rs.getBoolean("AVAILABLE"));
                 examStatement.setRuta(rs.getString("RUTA"));
-                examStatement.toString();
+                System.out.println(examStatement.toString());
             }
             rs.close();
             stmt.close();
@@ -459,7 +459,7 @@ public class DBImplementation implements ModelDAO {
         ExamSession examSession = null;
         ExamStatement examStatement = null;
         int statement;
-        boolean valido=false;
+        boolean valido = false , unico = true , respuesta = false;
         
         showAllExamStatements();
         System.out.println("Select the id of an existent statement, please: ");
@@ -480,12 +480,21 @@ public class DBImplementation implements ModelDAO {
         try{
             stmt = con.prepareStatement(SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT);
             stmt.setInt(1, examStatement.getId());
+            rs = stmt.executeQuery();
             
-            if (rs.next()) {
+            while (rs.next()){
                 examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
-                System.out.println("The exam session is: " + examSession.getConvocatoria());
-            } else {
-                System.out.println("There is no session with this statement."); //ESTO PUEDE OCURRIR?
+                if (unico){
+                    System.out.println("The exam session are:\n" + examSession.getConvocatoria());
+                } else {
+                    System.out.println(examSession.getConvocatoria());
+                }
+                unico = false;
+                respuesta = true;
+            }
+            
+            if (!respuesta){
+                System.out.println("There is no session with this statement."); 
             }
         } catch (SQLException e){
             System.out.println("SQL ERROR: " + e.getMessage());
