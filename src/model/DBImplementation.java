@@ -153,7 +153,6 @@ public class DBImplementation implements ModelDAO {
     public void showAllTeachingUnits() {
         // Open connection and checks all the existing units.
         this.openConnection();
-        ResultSet rs = null;
 
         try {
             // Prepare the SQL query
@@ -295,7 +294,6 @@ public class DBImplementation implements ModelDAO {
     public void showAllExamStatements() {
         // Open connection and checks all the existing units.
         this.openConnection();
-        ResultSet rs = null;
 
         try {
             // Prepare the SQL query
@@ -418,7 +416,6 @@ public class DBImplementation implements ModelDAO {
     public void consultStatementByTeachingUnit() {
         TeachingUnit teachingUnit;
         boolean exists = false;
-        ResultSet rs = null;
         
         showAllTeachingUnits();
         
