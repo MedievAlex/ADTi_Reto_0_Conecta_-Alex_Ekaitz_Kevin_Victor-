@@ -8,12 +8,12 @@ import utilidades.Utilidades;
  * @author Alex, Ekaitz, Kevin & Victor
  */
 public class DBImplementation implements ModelDAO {
-
     /**
      * Prepare statement variables
      */
     private Connection con;
     private PreparedStatement stmt;
+    private ResultSet rs;
 
     /**
      * Prepare SQL Connection variables
@@ -44,8 +44,8 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
+    final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "SELECT * FROM ExamSession WHERE E_id=(SELECT Id FROM ExamStatement WHERE ID = ?);";
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ES_ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
-    final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "";
 
     /**
      * Declare implementation constructor
@@ -453,11 +453,40 @@ public class DBImplementation implements ModelDAO {
     /**
      * Consult in which SESSIONS (Convocatoria) a specific STATEMENT (Enunciado)
      * has been used.
-     *
-     * @param examStatement
-     * @return true
      */
     @Override
     public void consultSessionsByStatement() {
+        consultSessionsByStatement
+        ExamSession examSession = null;
+        ExamStatement examStatement = null;
+        int statement;
+        boolean valido=false;
+        
+        showAllExamStatements();
+        System.out.println("Select the id of an existent statement, please: ");
+        
+        do{
+            statement = Utilidades.leerInt(); //Te da la oportunidad de repetir en caso de no introducir un numero?
+            examStatement = new ExamStatement(statement);
+
+            if (!verifyExamStatement(examStatement)){
+                System.out.println("Id incorrect. Try again, please:");
+            } else {
+                valido = true;
+            }
+        } while (!valido);
+        
+        this.openConnection();
+        
+        try{
+            stmt = con.prepareStatement(SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT);
+            stmt.setInt(1, examStatement.getId());
+            
+            if (rs.next()) {
+                examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
+            }
+        } catch (SQLException e){
+            System.out.println("SQL ERROR: " + e.getMessage());
+        }
     }
 }
