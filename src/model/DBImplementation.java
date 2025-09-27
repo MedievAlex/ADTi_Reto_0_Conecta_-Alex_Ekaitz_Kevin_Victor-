@@ -90,7 +90,7 @@ public class DBImplementation implements ModelDAO {
             stmt = con.prepareStatement(SQLSELECT_TEACHINGUNIT);
             stmt.setString(1, teachingUnit.getAcronim());
             // Executes the SQL query
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             // If there is any result, the user exists
             if (rs.next()) {
                 exists = true;
@@ -191,7 +191,7 @@ public class DBImplementation implements ModelDAO {
             stmt = con.prepareStatement(SQLSELECT_EXAMSTATEMENT);
             stmt.setInt(1, examStatement.getId());
             // Executes the SQL query
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             // If there is any result, the user exists
             if (rs.next()) {
                 exists = true;
