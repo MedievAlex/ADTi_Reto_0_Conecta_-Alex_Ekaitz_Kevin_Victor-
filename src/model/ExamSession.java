@@ -32,7 +32,7 @@ public class ExamSession {
      * Parametized constructor to create the EXAM SESSION with all the
      * variables.
      *
-     * @param convocatoria
+     * @param session
      * @param description
      * @param session_date
      * @param course
@@ -47,20 +47,20 @@ public class ExamSession {
     }
 
     /**
-     * Convocatoria's getter. It gets the data of this variable from the
+     * Session's getter. It gets the data of this variable from the
      * ExamStatement.
      *
-     * @return convocatoria
+     * @return session
      */
     public String getSession() {
         return session;
     }
 
     /**
-     * Convocatoria's setter. It sets the data of this variable from the
+     * Session's setter. It sets the data of this variable from the
      * TeachingUnit with the variable or value given.
      *
-     * @param convocatoria
+     * @param session
      */
     public void setSession(String session) {
         this.session = session;
