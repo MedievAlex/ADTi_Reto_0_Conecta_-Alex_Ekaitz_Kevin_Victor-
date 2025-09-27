@@ -456,7 +456,6 @@ public class DBImplementation implements ModelDAO {
      */
     @Override
     public void consultSessionsByStatement() {
-        consultSessionsByStatement
         ExamSession examSession = null;
         ExamStatement examStatement = null;
         int statement;
@@ -484,6 +483,9 @@ public class DBImplementation implements ModelDAO {
             
             if (rs.next()) {
                 examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
+                System.out.println("The exam session is: " + examSession.getConvocatoria());
+            } else {
+                System.out.println("There is no session with this statement."); //ESTO PUEDE OCURRIR?
             }
         } catch (SQLException e){
             System.out.println("SQL ERROR: " + e.getMessage());
