@@ -170,7 +170,7 @@ public class DBImplementation implements ModelDAO {
                 teachingUnit.setTitle(rs.getString("TITLE"));
                 teachingUnit.setEvaluation(rs.getString("EVALUATION"));
                 teachingUnit.setDescription(rs.getString("DESCRIPTION"));
-                teachingUnit.toString();
+                System.out.println(teachingUnit.toString());
             }
             rs.close();
             stmt.close();
@@ -421,18 +421,19 @@ public class DBImplementation implements ModelDAO {
     @Override
     public void consultStatementByTeachingUnit() {
         TeachingUnit teachingUnit;
-        boolean exists = false;
+        ExamStatement examStatement;
+        boolean exists, unico = true;
         
         showAllTeachingUnits();
+        System.out.print("Enter the acronim of an existing teaching unit: ");
         
         do {
-            System.out.print("Enter the acronim of a teaching unit: ");
             teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
             
             exists = verifyTeachingUnit(teachingUnit);
             
             if (!exists) {
-                System.out.print("The acronim entered is not registered\n");
+                System.out.print("The acronim entered is not registered: ");
             }
         } while(!exists);
         
@@ -442,9 +443,23 @@ public class DBImplementation implements ModelDAO {
             stmt = con.prepareStatement(SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT);
             stmt.setString(1, teachingUnit.getAcronim());
             rs = stmt.executeQuery();
+            
             while (rs.next()) {
-                System.out.print(new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5)) + "\n");
+                examStatement = new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5));
+
+                if (unico){
+                    System.out.println("The exam statements are:\n" + examStatement.getDescription());
+                } else {
+                    System.out.println(examStatement.getDescription());
+                }
+                
+                unico = false;
             }
+
+            if (unico){
+                System.out.println("There is no session with this statement."); 
+            }
+            
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -462,17 +477,17 @@ public class DBImplementation implements ModelDAO {
         ExamSession examSession = null;
         ExamStatement examStatement = null;
         int statement;
-        boolean valido = false , unico = true , respuesta = false;
+        boolean valido = false, unico = true, respuesta = false;
         
         showAllExamStatements();
-        System.out.println("Select the id of an existent statement, please: ");
+        System.out.print("Select the Id of an existent statement, please: ");
         
         do{
             statement = Utilidades.leerInt(); //Te da la oportunidad de repetir en caso de no introducir un numero?
             examStatement = new ExamStatement(statement);
 
             if (!verifyExamStatement(examStatement)){
-                System.out.println("Id incorrect. Try again, please:");
+                System.out.print("Incorrect Id. Try again, please: ");
             } else {
                 valido = true;
             }
