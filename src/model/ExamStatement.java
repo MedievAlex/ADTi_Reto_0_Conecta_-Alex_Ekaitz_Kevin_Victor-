@@ -12,17 +12,17 @@ public class ExamStatement {
     private String description;
     private StatementLevel statement_level;
     private Boolean available;
-    private String ruta;
+    private String route;
 
     /**
      * Empty constructor.
      */
     public ExamStatement() {
         this.id = 0;
-        this.description = " ";
+        this.description = "";
         this.statement_level = null;
         this.available = null;
-        this.ruta = " ";
+        this.route = "";
     }
     
     /**
@@ -33,10 +33,10 @@ public class ExamStatement {
      */
     public ExamStatement(int id) {
         this.id = id;
-        this.description = " ";
+        this.description = "";
         this.statement_level = null;
         this.available = null;
-        this.ruta = " ";
+        this.route = "";
     }
     
     /**
@@ -47,18 +47,19 @@ public class ExamStatement {
      * @param description
      * @param statement_level
      * @param avaiable
-     * @param ruta
+     * @param route
      */
-    public ExamStatement(int id, String description, StatementLevel statement_level, Boolean avaiable, String ruta) {
+    public ExamStatement(int id, String description, StatementLevel statement_level, Boolean avaiable, String route) {
         this.id = id;
         this.description = description;
         this.statement_level = statement_level;
         this.available = avaiable;
-        this.ruta = ruta;
+        this.route = route;
     }
 
     /**
-     * Id's getter. It gets the data of this variable from the ExamStatement.
+     * Id's getter. It gets the data of this variable from the 
+     * ExamStatement.
      *
      * @return id
      */
@@ -67,8 +68,8 @@ public class ExamStatement {
     }
 
     /**
-     * Id's setter. It sets the data of this variable from the TeachingUnit with
-     * the variable or value given.
+     * Id's setter. It sets the data of this variable from the
+     * ExamStatement with the variable or value given.
      *
      * @param id
      */
@@ -88,7 +89,7 @@ public class ExamStatement {
 
     /**
      * Description's setter. It sets the data of this variable from the
-     * TeachingUnit with the variable or value given.
+     * ExamStatement with the variable or value given.
      *
      * @param description
      */
@@ -97,7 +98,8 @@ public class ExamStatement {
     }
 
     /**
-     * Statement Level's getter. It gets the data of this variable from the ExamStatement.
+     * Statement Level's getter. It gets the data of this variable from the
+     * ExamStatement.
      *
      * @return statement_level
      */
@@ -106,8 +108,8 @@ public class ExamStatement {
     }
 
     /**
-     * Statement Level's setter. It sets the data of this variable from the TeachingUnit
-     * with the variable or value given.
+     * Statement Level's setter. It sets the data of this variable from the
+     * ExamStatement with the variable or value given.
      *
      * @param statement_level
      */
@@ -127,7 +129,7 @@ public class ExamStatement {
 
     /**
      * Avaiable's setter. It sets the data of this variable from the
-     * TeachingUnit with the variable or value given.
+     * ExamStatement with the variable or value given.
      *
      * @param available
      */
@@ -136,22 +138,23 @@ public class ExamStatement {
     }
 
     /**
-     * Ruta's getter. It gets the data of this variable from the ExamStatement.
+     * Route's getter. It gets the data of this variable from the
+     * ExamStatement.
      *
-     * @return ruta
+     * @return route
      */
     public String getRuta() {
-        return ruta;
+        return route;
     }
 
     /**
-     * Ruta's setter. It sets the data of this variable from the TeachingUnit
-     * with the variable or value given.
+     * Route's setter. It sets the data of this variable from the
+     * ExamStatement with the variable or value given.
      *
-     * @param ruta
+     * @param route
      */
     public void setRuta(String ruta) {
-        this.ruta = ruta;
+        this.ruta = route;
     }
 
     /**
@@ -161,6 +164,6 @@ public class ExamStatement {
      */
     @Override
     public String toString() {
-        return "Exam Statement [" + "ID: " + id + ", Description: " + description + ", Statement Level: " + statement_level + ", Available: " + available + ", Ruta: " + ruta + ']';
+        return "Exam Statement [" + "ID: " + id + ", Description: " + description + ", Statement Level: " + statement_level + ", Available: " + available + ", Route: " + route + ']';
     }
 }
