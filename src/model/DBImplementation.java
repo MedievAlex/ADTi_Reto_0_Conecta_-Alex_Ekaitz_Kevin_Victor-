@@ -44,8 +44,9 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
-    final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "SELECT * FROM ExamSession WHERE E_id=(SELECT Id FROM ExamStatement WHERE ID = ?);";
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ES_ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
+    final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "SELECT * FROM ExamSession WHERE E_id = ?;";
+    
 
     /**
      * Declare implementation constructor
@@ -425,7 +426,7 @@ public class DBImplementation implements ModelDAO {
         boolean exists, unico = true;
         
         showAllTeachingUnits();
-        System.out.print("Enter the acronim of an existing teaching unit: ");
+        System.out.print("Enter the acronim of an existing teaching unit, please: ");
         
         do {
             teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
@@ -433,7 +434,7 @@ public class DBImplementation implements ModelDAO {
             exists = verifyTeachingUnit(teachingUnit);
             
             if (!exists) {
-                System.out.print("The acronim entered is not registered: ");
+                System.out.print("Incorrect Acronim. Try again, please: ");
             }
         } while(!exists);
         
@@ -457,7 +458,7 @@ public class DBImplementation implements ModelDAO {
             }
 
             if (unico){
-                System.out.println("There is no session with this statement."); 
+                System.out.println("There is no statement with that teaching unit.");
             }
             
             stmt.close();
@@ -512,7 +513,7 @@ public class DBImplementation implements ModelDAO {
             }
             
             if (!respuesta){
-                System.out.println("There is no session with this statement."); 
+                System.out.println("There is no session with that statement."); 
             }
         } catch (SQLException e){
             System.out.println("SQL ERROR: " + e.getMessage());
