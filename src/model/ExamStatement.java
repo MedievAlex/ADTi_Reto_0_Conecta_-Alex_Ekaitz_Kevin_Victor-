@@ -46,14 +46,14 @@ public class ExamStatement {
      * @param id
      * @param description
      * @param statement_level
-     * @param avaiable
+     * @param available
      * @param route
      */
-    public ExamStatement(int id, String description, StatementLevel statement_level, Boolean avaiable, String route) {
+    public ExamStatement(int id, String description, StatementLevel statement_level, Boolean available, String route) {
         this.id = id;
         this.description = description;
         this.statement_level = statement_level;
-        this.available = avaiable;
+        this.available = available;
         this.route = route;
     }
 
@@ -143,7 +143,7 @@ public class ExamStatement {
      *
      * @return route
      */
-    public String getRuta() {
+    public String getRoute() {
         return route;
     }
 
@@ -153,8 +153,8 @@ public class ExamStatement {
      *
      * @param route
      */
-    public void setRuta(String ruta) {
-        this.ruta = route;
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     /**
