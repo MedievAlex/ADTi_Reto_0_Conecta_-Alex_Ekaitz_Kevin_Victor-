@@ -138,6 +138,6 @@ public class TeachingUnit {
      */
     @Override
     public String toString() {
-        return "UnidadDidactica [" + "Acronimo: " + acronim + ", Titulo: " + title + ", Evaluacion: " + evaluation + ", Descripcion: " + description + "]";
+        return "Teaching Unit [" + "Acronim: " + acronim + ", Title: " + title + ", Evaluation: " + evaluation + ", Description: " + description + "]";
     }
 }

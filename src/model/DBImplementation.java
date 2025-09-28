@@ -229,19 +229,19 @@ public class DBImplementation implements ModelDAO {
         System.out.print("Enter the DESCRIPTION: ");
         examStatement.setDescription(Utilidades.introducirCadena());
         System.out.println("[ LEVELS ]");
-        System.out.println("1 - ALTO");
-        System.out.println("2 - MEDIO");
-        System.out.println("3 - BAJO");
+        System.out.println("1 - HIGH");
+        System.out.println("2 - INTERMEDIATE");
+        System.out.println("3 - LOW");
         System.out.print("Enter the NIVEL: ");
         switch (Utilidades.leerInt(1, 3)) {
             case 1:
-                examStatement.setStatementLevel(StatementLevel.ALTO);
+                examStatement.setStatementLevel(StatementLevel.HIGH);
                 break;
             case 2:
-                examStatement.setStatementLevel(StatementLevel.MEDIO);
+                examStatement.setStatementLevel(StatementLevel.INTERMEDIATE);
                 break;
             case 3:
-                examStatement.setStatementLevel(StatementLevel.BAJO);
+                examStatement.setStatementLevel(StatementLevel.LOW);
                 break;
         }
         System.out.print("Enter the AVAILABILITY (Y/N): ");
@@ -254,7 +254,7 @@ public class DBImplementation implements ModelDAO {
                 break;
         }
         System.out.print("Enter the RUTA: ");
-        examStatement.setRuta(Utilidades.introducirCadena());
+        examStatement.setRoute(Utilidades.introducirCadena());
 
         System.out.println("[ AVAILABLE TEACHING UNITS ]");
         showAllTeachingUnits();
@@ -271,14 +271,14 @@ public class DBImplementation implements ModelDAO {
                     stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA)
                     stmt.setString(1, examStatement.getDescription());
                     switch (examStatement.getStatementLevel()) {
-                        case ALTO:
-                            stmt.setString(2, "ALTO");
+                        case HIGH:
+                            stmt.setString(2, "HIGH");
                             break;
-                        case MEDIO:
-                            stmt.setString(2, "MEDIO");
+                        case INTERMEDIATE:
+                            stmt.setString(2, "INTERMEDIATE");
                             break;
-                        case BAJO:
-                            stmt.setString(2, "BAJO");
+                        case LOW:
+                            stmt.setString(2, "LOW");
                             break;
                     }
                     stmt.setBoolean(3, examStatement.getAvailable());
@@ -313,19 +313,19 @@ public class DBImplementation implements ModelDAO {
                 examStatement.setDescription(rs.getString("DESCRIPTION"));
 
                 switch (rs.getString("STATEMENT_LEVEL")) {
-                    case "ALTO":
-                        examStatement.setStatementLevel(StatementLevel.ALTO);
+                    case "HIGH":
+                        examStatement.setStatementLevel(StatementLevel.HIGH);
                         break;
-                    case "MEDIO":
-                        examStatement.setStatementLevel(StatementLevel.MEDIO);
+                    case "INTERMEDIATE":
+                        examStatement.setStatementLevel(StatementLevel.INTERMEDIATE);
                         break;
                     case "BAJO":
-                        examStatement.setStatementLevel(StatementLevel.BAJO);
+                        examStatement.setStatementLevel(StatementLevel.LOW);
                         break;
                 }
 
                 examStatement.setAvailable(rs.getBoolean("AVAILABLE"));
-                examStatement.setRuta(rs.getString("RUTA"));
+                examStatement.setRoute(rs.getString("RUTA"));
                 System.out.println(examStatement.toString());
             }
             rs.close();
@@ -377,7 +377,7 @@ public class DBImplementation implements ModelDAO {
         boolean exists = true;
 
         System.out.print("Enter the CONVOCATORIA: ");
-        examSession.setConvocatoria(Utilidades.introducirCadena());
+        examSession.setSession(Utilidades.introducirCadena());
         System.out.print("Enter the DESCRIPTION: ");
         examSession.setDescription(Utilidades.introducirCadena());
         System.out.print("Enter the DESCRIPTION: ");
@@ -400,7 +400,7 @@ public class DBImplementation implements ModelDAO {
         this.openConnection();
         try {
             stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(CONVOCATORIA, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
-            stmt.setString(1, examSession.getConvocatoria());
+            stmt.setString(1, examSession.getSession());
             stmt.setString(2, examSession.getDescription());
             stmt.setDate(3, examSession.getSession_date());
             stmt.setString(4, examSession.getCourse());
@@ -504,9 +504,9 @@ public class DBImplementation implements ModelDAO {
             while (rs.next()){
                 examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
                 if (unico){
-                    System.out.println("The exam session are:\n" + examSession.getConvocatoria());
+                    System.out.println("The exam session are:\n" + examSession.getSession());
                 } else {
-                    System.out.println(examSession.getConvocatoria());
+                    System.out.println(examSession.getSession());
                 }
                 unico = false;
                 respuesta = true;

@@ -152,7 +152,7 @@ public class ExamSession {
      */
     @Override
     public String toString() {
-        return "ExamSession [" + "Session: " + convocatoria + ", Description: " + description + ", Date: " + session_date + ", Course: " + course + ", Statement Id: " + eId + ']';
+        return "Exam Session [" + "Session: " + session + ", Description: " + description + ", Date: " + session_date + ", Course: " + course + ", Statement Id: " + eId + ']';
     }
 
 }
