@@ -109,9 +109,6 @@ public class DBImplementation implements ModelDAO {
 
     /**
      * Creates a new TEACHING UNIT (UnidadDIdactica).
-     *
-     * @param teachingUnit
-     * @return register
      */
     @Override
     public void newTeachingUnit() {
@@ -217,9 +214,6 @@ public class DBImplementation implements ModelDAO {
     /**
      * Creates an exam STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica).
-     *
-     * @param examStatement
-     * @return register
      */
     @Override
     public void newExamStatement() {
@@ -367,9 +361,6 @@ public class DBImplementation implements ModelDAO {
     /**
      * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
      * (Enunciado).
-     *
-     * @param examSession
-     * @return register
      */
     @Override
     public void newExamSession() {
@@ -421,6 +412,7 @@ public class DBImplementation implements ModelDAO {
      */
     @Override
     public void consultStatementByTeachingUnit() {
+        TeachingUnit teachingUnit = null;
         boolean exists, unico = true;
         
         System.out.println("[ AVAILABLE TEACHING UNITS ]");
@@ -428,7 +420,7 @@ public class DBImplementation implements ModelDAO {
         
         do {
             System.out.print("Add the TEACHING UNIT's ACRONIM: ");
-            TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
+            teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
             
             exists = verifyTeachingUnit(teachingUnit);
             
@@ -474,15 +466,15 @@ public class DBImplementation implements ModelDAO {
      */
     @Override
     public void consultSessionsByStatement() {
-        int statement;
-        boolean valido = false, unico = true, respuesta = false;
+        ExamStatement examStatement;
+        boolean exists, unico = true, respuesta = false;
 
         System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
         showAllExamStatements();
 
         do {
             System.out.print("Add the EXAM STATEMENTS's ID: ");
-            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
+            examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
             if (exists) {
                 System.out.print("[ ERROR ] Invalid ID");
