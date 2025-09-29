@@ -365,7 +365,7 @@ public class DBImplementation implements ModelDAO {
     @Override
     public void newExamSession() {
         ExamSession examSession = new ExamSession();
-        boolean exists = true;
+        boolean exists;
 
         System.out.print("Enter the CONVOCATORIA: ");
         examSession.setSession(Utilidades.introducirCadena());
