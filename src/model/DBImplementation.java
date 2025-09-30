@@ -292,7 +292,7 @@ public class DBImplementation implements ModelDAO {
                     System.out.println("An error has occurred when attempting to register the user.");
                     e.printStackTrace();
                 }
-                // newStatementForUnit(teachingUnit, examStatement);
+                newStatementForUnit(teachingUnit, examStatement);
             }
         } while (!exists);
     }
