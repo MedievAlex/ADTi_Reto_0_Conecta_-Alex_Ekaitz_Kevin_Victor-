@@ -4,7 +4,7 @@ package model;
  * @author Alex, Ekaitz, Kevin & Victor
  */
 public interface ModelDAO {
-    
+
     /**
      * Verifies if the TEACHING UNIT (UnidadDIdactica) exists
      *
@@ -12,17 +12,17 @@ public interface ModelDAO {
      * @return
      */
     public boolean verifyTeachingUnit(TeachingUnit teachingUnit);
-    
+
     /**
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
      */
     public void newTeachingUnit();
-   
-     /**
+
+    /**
      * Shows all the TEACHING UNIT's (UnidadDIdactica) on the database
      */
     public void showAllTeachingUnits();
-    
+
     /**
      * Verifies if the EXAM STATEMENT (Enunciado) exists
      *
@@ -30,7 +30,7 @@ public interface ModelDAO {
      * @return
      */
     public boolean verifyExamStatement(ExamStatement examStatement);
-    
+
     /**
      * [ 2 ] Create an EXAM STATEMENT (Enunciado) by adding an existent teaching
      * units (UnidadDidactica)
@@ -41,16 +41,23 @@ public interface ModelDAO {
      * Shows all the EXAM STATEMENT's (Enunciado) on the database
      */
     public void showAllExamStatements();
-        
-   /**
+
+    /**
+     * Counts all the EXAM STATEMENT's (Enunciado) on the database
+     *
+     * @return
+     */
+    public int countAllExamStatements();
+
+    /**
      * Creates a insert on the StatementUnit table
      *
      * @param teachingUnit
      * @param examStatement
-     * @return 
+     * @return
      */
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement);
-    
+
     /**
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)

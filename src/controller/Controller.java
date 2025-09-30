@@ -28,7 +28,7 @@ public class Controller {
      * [ 1 ] Create a new TEACHING UNIT (UnidadDIdactica)
      */
     public void newTeachingUnit() {
-       dao.newTeachingUnit();
+        dao.newTeachingUnit();
     }
 
     /**
@@ -36,8 +36,8 @@ public class Controller {
      */
     public void showAllTeachingUnits() {
         dao.showAllTeachingUnits();
-    }    
-    
+    }
+
     /**
      * Verifies if the EXAM STATEMENT (Enunciado) exists
      *
@@ -59,11 +59,20 @@ public class Controller {
     /**
      * Shows all the EXAM STATEMENT's (Enunciado) on the database
      */
-    public void showAllExamStatements() {  
+    public void showAllExamStatements() {
         dao.showAllExamStatements();
     }
-    
-   /**
+
+    /**
+     * Counts all the EXAM STATEMENT's (Enunciado) on the database
+     *
+     * @return
+     */
+    public int countAllExamStatements() {
+        return dao.countAllExamStatements();
+    }
+
+    /**
      * Creates a insert on the StatementUnit table
      *
      * @param teachingUnit
@@ -72,8 +81,8 @@ public class Controller {
      */
     public boolean newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement) {
         return dao.newStatementForUnit(teachingUnit, examStatement);
-    } 
-    
+    }
+
     /**
      * [ 3 ] Create a EXAM SESSION (Convocatoria) by adding an existent
      * STATEMENT (Enunciado)

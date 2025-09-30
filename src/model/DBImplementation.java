@@ -260,6 +260,9 @@ public class DBImplementation implements ModelDAO {
             if (!exists) {
                 System.out.println("[ ERROR ] Invalid ACRONIM");
             } else {
+
+                examStatement.setId(countAllExamStatements());
+
                 this.openConnection();
                 try {
                     stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE)
@@ -277,6 +280,12 @@ public class DBImplementation implements ModelDAO {
                     }
                     stmt.setBoolean(3, examStatement.getAvailable());
                     stmt.setString(4, examStatement.getDescription());
+
+                    if (stmt.executeUpdate() == 0) {
+                        System.out.println("It was not possible to create the new EXAM STATEMENT.");
+                    } else {
+                        System.out.println("The EXAM STATEMENT with the ID " + examStatement.getId() + " was created correctly.");
+                    }
                     stmt.close();
                     con.close();
                 } catch (SQLException e) {
@@ -285,7 +294,7 @@ public class DBImplementation implements ModelDAO {
                 }
                 newStatementForUnit(teachingUnit, examStatement);
             }
-        } while (exists);
+        } while (!exists);
     }
 
     /**
@@ -328,6 +337,33 @@ public class DBImplementation implements ModelDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Counts all the EXAM STATEMENT's (Enunciado) on the database
+     *
+     * @return
+     */
+    @Override
+    public int countAllExamStatements() {
+        int num = 1;
+        // Open connection and checks all the existing units.
+        this.openConnection();
+
+        try {
+            // Prepare the SQL query
+            stmt = con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                num++;
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
     }
 
     /**
@@ -389,7 +425,7 @@ public class DBImplementation implements ModelDAO {
                 examSession.seteId(examStatement.getId());
             }
         } while (!exists);
-        
+
         this.openConnection();
         try {
             stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(SESSION, DESCRIPTION, SESSION_DATE, CURSO, E_ID)

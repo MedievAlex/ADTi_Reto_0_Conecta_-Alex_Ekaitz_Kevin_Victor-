@@ -30,7 +30,7 @@ public class TeachingUnit {
      * @param acronim
      */
     public TeachingUnit(String acronim) {
-        this.acronim = acronim;
+        this.acronim = acronim.toUpperCase();
         this.title = " ";
         this.evaluation = " ";
         this.description = " ";
@@ -46,7 +46,7 @@ public class TeachingUnit {
      * @param description
      */
     public TeachingUnit(String acronim, String title, String evaluation, String description) {
-        this.acronim = acronim;
+        this.acronim = acronim.toUpperCase();
         this.title = title;
         this.evaluation = evaluation;
         this.description = description;
@@ -98,7 +98,7 @@ public class TeachingUnit {
      * @param acronim
      */
     public void setAcronim(String acronim) {
-        this.acronim = acronim;
+        this.acronim = acronim.toUpperCase();
     }
 
     /**
