@@ -40,10 +40,14 @@ https://github.com/MedievAlex/ADTi_Reto_0_Conecta_-Alex_Ekaitz_Kevin_Victor-.git
 ------> newExamStatement()
 ---------> showAllTeachingUnits()
 ---------> verifyTeachingUnit(teachingUnit)
+---------> countAllExamStatements()
 ---------> con.prepareStatement(SQLINSERT_EXAMSTATEMENT)
 ---------> newStatementForUnit(teachingUnit, examStatement)
 
 ------> showAllExamStatements()
+---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
+
+------> countAllExamStatements()
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
 ------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement)
