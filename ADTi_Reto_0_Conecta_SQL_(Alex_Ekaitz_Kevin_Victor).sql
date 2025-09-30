@@ -57,7 +57,7 @@ INSERT INTO StatementUnit VALUES
 ("ADTi", 4);
 
 INSERT INTO ExamSession VALUES
-("Primera Convocatoria DIN", "Examen para la clase 208", '2025-01-04', "2DAMi", 1),
-("Segunda Convocatoria DIN", "Examen para la clase 208", '2025-01-04', "2DAMi", 2),
-("Final DIN", "Examen para la clase 208", '2025-01-04', "2DAMi", 2),
-("Primera Convocatoria ADTi", "Examen de recuperacion tanto para 1º como 2º DAMi", '2025-02-24', "2DAMi", 4);
+("DIN1", "Primera Convocatoria DIN", '2025-01-04', "2DAMi", 1),
+("DIN2", "Segunda Convocatoria DIN", '2025-01-04', "2DAMi", 2),
+("DINF", "Final DIN", '2025-01-04', "2DAMi", 2),
+("ADTI1", "Primera Convocatoria ADTi", '2025-02-24', "2DAMi", 4);
