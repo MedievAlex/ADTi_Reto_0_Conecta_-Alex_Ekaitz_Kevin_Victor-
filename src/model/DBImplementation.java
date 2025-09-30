@@ -29,7 +29,7 @@ public class DBImplementation implements ModelDAO {
      * SQL Queries: INSERTS
      */
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
-    final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES (?, ?, ?, ?)";
+    final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)";
     final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)";
 
@@ -247,7 +247,7 @@ public class DBImplementation implements ModelDAO {
                 examStatement.setAvailable(false);
                 break;
         }
-        System.out.print("Enter the RUTA: ");
+        System.out.print("Enter the ROUTE: ");
         examStatement.setRoute(Utilidades.introducirCadena());
 
         System.out.println("[ AVAILABLE TEACHING UNITS ]");
@@ -257,12 +257,12 @@ public class DBImplementation implements ModelDAO {
             System.out.print("Add the TEACHING UNIT's ACRONIM: ");
             TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
             exists = verifyTeachingUnit(teachingUnit);
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ACRONIM");
+            if (!exists) {
+                System.out.println("[ ERROR ] Invalid ACRONIM");
             } else {
                 this.openConnection();
                 try {
-                    stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA)
+                    stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE)
                     stmt.setString(1, examStatement.getDescription());
                     switch (examStatement.getStatementLevel()) {
                         case HIGH:
@@ -319,7 +319,7 @@ public class DBImplementation implements ModelDAO {
                 }
 
                 examStatement.setAvailable(rs.getBoolean("AVAILABLE"));
-                examStatement.setRoute(rs.getString("RUTA"));
+                examStatement.setRoute(rs.getString("ROUTE"));
                 System.out.println(examStatement.toString());
             }
             rs.close();
@@ -424,8 +424,8 @@ public class DBImplementation implements ModelDAO {
             
             exists = verifyTeachingUnit(teachingUnit);
             
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ACRONIM");
+            if (!exists) {
+                System.out.println("[ ERROR ] Invalid ACRONIM");
             }   
         } while(!exists);
         
@@ -440,9 +440,9 @@ public class DBImplementation implements ModelDAO {
                 ExamStatement examStatement = new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5));
 
                 if (unico){
-                    System.out.println("The EXAM STATEMENTS are:\n" + examStatement.getDescription());
+                    System.out.println("The EXAM STATEMENTS are:\n" + "- " + examStatement.getDescription());
                 } else {
-                    System.out.println(examStatement.getDescription());
+                    System.out.println("- " + examStatement.getDescription());
                 }
                 
                 unico = false;
@@ -476,10 +476,10 @@ public class DBImplementation implements ModelDAO {
             System.out.print("Add the EXAM STATEMENTS's ID: ");
             examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ID");
+            if (!exists) {
+                System.out.println("[ ERROR ] Invalid ID");
             }
-        } while (exists);
+        } while (!exists);
         
         this.openConnection();
         
@@ -491,9 +491,9 @@ public class DBImplementation implements ModelDAO {
             while (rs.next()){
                 ExamSession examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
                 if (unico){
-                    System.out.println("The exam session are:\n" + examSession.getSession());
+                    System.out.println("The exam session are:\n" + "- " + examSession.getSession());
                 } else {
-                    System.out.println(examSession.getSession());
+                    System.out.println("- " + examSession.getSession());
                 }
                 unico = false;
                 respuesta = true;

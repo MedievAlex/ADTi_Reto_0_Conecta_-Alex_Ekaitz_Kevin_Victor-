@@ -26,7 +26,7 @@ FOREIGN KEY (ES_ID) REFERENCES ExamStatement (ID) ON UPDATE CASCADE ON DELETE CA
 );
 
 CREATE TABLE ExamSession (
-SESSION varchar(50) PRIMARY KEY NOT NULL,
+ES_SESSION varchar(50) PRIMARY KEY NOT NULL,
 DESCRIPTION varchar(200),
 SESSION_DATE Date,
 COURSE varchar(50),
@@ -38,9 +38,9 @@ INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES
 ("DIN", "Desarollo de Interfaces", "Primera", "Implanta sistemas y aplicaciones informáticas sobre entornos específicos."),
 ("ADTi", "Acceso a Datos Inglés", "Tercera", "Desarrolla aplicaciones y componentes de acceso a datos, gestionando su persistencia y garantizando la seguridad y calidad de los mismos.");
 
-INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, RUTA) VALUES
-("Genera un programa con interfaz para una aplicación de compraventa utilizando una base de datos.", "ALTO", true, "Por la derecha"),
-("Crea un esquema del funcionamiento de una aplicacion generica.", "BAJO", false, "A la izquierda");
+INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE) VALUES
+("Genera un programa con interfaz para una aplicación de compraventa utilizando una base de datos.", "HIGH", true, "Por la derecha"),
+("Crea un esquema del funcionamiento de una aplicacion generica.", "LOW", false, "A la izquierda");
 
 INSERT INTO StatementUnit VALUES
 ("DIN", 1),
@@ -48,4 +48,4 @@ INSERT INTO StatementUnit VALUES
 
 INSERT INTO ExamSession VALUES
 ("Primera Convocatoria", "Examen para la clase 208", '2025-01-04', "2DAMi", 1),
-("Segunda Convocatoria", "Examend e recuperacion tanto para 1º como 2º DAMi", '2025-02-24', "2DAMi", 1);
+("Segunda Convocatoria", "Examen de recuperacion tanto para 1º como 2º DAMi", '2025-02-24', "2DAMi", 1);
