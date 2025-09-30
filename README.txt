@@ -11,7 +11,6 @@ https://github.com/MedievAlex/ADTi_Reto_0_Conecta_-Alex_Ekaitz_Kevin_Victor-.git
 
 ------> [ 2 ] Create a new EXAM STATEMENT
 ---------> cont.newExamStatement()
----------> cont.newStatementForUnit(teachingUnit, )
 
 ------> [ 3 ] Create a EXAM SESSION
 ---------> cont.newExamSession()
@@ -48,6 +47,7 @@ https://github.com/MedievAlex/ADTi_Reto_0_Conecta_-Alex_Ekaitz_Kevin_Victor-.git
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
 ------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement)
+---------> con.prepareStatement(SQLINSERT_STATEMENTUNIT)
 
 ------> newExamSession()
 ---------> showAllExamStatements();
@@ -56,8 +56,10 @@ https://github.com/MedievAlex/ADTi_Reto_0_Conecta_-Alex_Ekaitz_Kevin_Victor-.git
 
 ------> consultStatementByTeachingUnit()
 ---------> showAllTeachingUnits()
----------> verifyTeachingUnit(teachingUnit) 
+---------> verifyTeachingUnit(teachingUnit)
+---------> con.prepareStatement(SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT) 
 
 ------> consultSessionsByStatement()
 ---------> showAllExamStatements()
 ---------> verifyExamStatement(examStatement)
+---------> con.prepareStatement(SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT)
