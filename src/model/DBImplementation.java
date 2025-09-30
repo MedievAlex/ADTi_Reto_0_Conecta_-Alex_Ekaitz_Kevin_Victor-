@@ -8,6 +8,7 @@ import utilidades.Utilidades;
  * @author Alex, Ekaitz, Kevin & Victor
  */
 public class DBImplementation implements ModelDAO {
+
     /**
      * Prepare statement variables
      */
@@ -30,7 +31,7 @@ public class DBImplementation implements ModelDAO {
      */
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE) VALUES (?, ?, ?, ?)";
-    final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)";
+    final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)"; //ES_SESSION, DESCRIPTION, SESSION_DATE, COURSE, E_ID int
     final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)";
 
     /**
@@ -46,7 +47,6 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT = "SELECT * FROM ExamStatement WHERE ID IN (SELECT ES_ID FROM StatementUnit WHERE TU_ACRONIM = ?)";
     final String SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT = "SELECT * FROM ExamSession WHERE E_id = ?;";
-    
 
     /**
      * Declare implementation constructor
@@ -130,13 +130,13 @@ public class DBImplementation implements ModelDAO {
                 stmt.setString(2, teachingUnit.getTitle());
                 stmt.setString(3, teachingUnit.getEvaluation());
                 stmt.setString(4, teachingUnit.getDescription());
-                
-                if (stmt.executeUpdate() == 0){
+
+                if (stmt.executeUpdate() == 0) {
                     System.out.println("It was not possible to create the new TEACHING UNIT.");
                 } else {
                     System.out.println("The TEACHING UNIT with " + teachingUnit.getAcronim() + " ACRONIM was created correctly.");
                 }
-                
+
                 stmt.close();
                 con.close();
             } catch (SQLException e) {
@@ -276,7 +276,7 @@ public class DBImplementation implements ModelDAO {
                             break;
                     }
                     stmt.setBoolean(3, examStatement.getAvailable());
-                    stmt.setString(4, examStatement.getDescription());                  
+                    stmt.setString(4, examStatement.getDescription());
                     stmt.close();
                     con.close();
                 } catch (SQLException e) {
@@ -342,16 +342,16 @@ public class DBImplementation implements ModelDAO {
         boolean register = false;
 
         this.openConnection();
-        try{
+        try {
             stmt = con.prepareStatement(SQLINSERT_STATEMENTUNIT);
             stmt.setString(1, teachingUnit.getAcronim());
             stmt.setInt(2, examStatement.getId());
-            if(stmt.executeUpdate()>0){
+            if (stmt.executeUpdate() > 0) {
                 register = true;
             }
             stmt.close();
             con.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("An error has ocurred when attempting to register the user");
             e.printStackTrace();
         }
@@ -385,18 +385,26 @@ public class DBImplementation implements ModelDAO {
             exists = verifyExamStatement(examStatement);
             if (!exists) {
                 System.out.println("[ ERROR ] Invalid ID");
+            } else {
+                examSession.seteId(examStatement.getId());
             }
         } while (!exists);
         
         this.openConnection();
         try {
-            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(CONVOCATORIA, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
+            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(SESSION, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
             stmt.setString(1, examSession.getSession());
             stmt.setString(2, examSession.getDescription());
             stmt.setDate(3, examSession.getSession_date());
             stmt.setString(4, examSession.getCourse());
             stmt.setInt(5, examSession.geteId());
-            
+
+            if (stmt.executeUpdate() == 0) {
+                System.out.println("It was not possible to create the new EXAM SESSION.");
+            } else {
+                System.out.println("The EXAM SESSION " + examSession.getSession() + " was created correctly.");
+            }
+
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -414,44 +422,44 @@ public class DBImplementation implements ModelDAO {
     public void consultStatementByTeachingUnit() {
         TeachingUnit teachingUnit = null;
         boolean exists, unico = true;
-        
+
         System.out.println("[ AVAILABLE TEACHING UNITS ]");
-        showAllTeachingUnits();    
-        
+        showAllTeachingUnits();
+
         do {
             System.out.print("Add the TEACHING UNIT's ACRONIM: ");
             teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-            
+
             exists = verifyTeachingUnit(teachingUnit);
-            
+
             if (!exists) {
                 System.out.println("[ ERROR ] Invalid ACRONIM");
-            }   
-        } while(!exists);
-        
+            }
+        } while (!exists);
+
         this.openConnection();
-        
+
         try {
             stmt = con.prepareStatement(SQLSELECT_EXAMSTATEMENTBYTEACHINGUNIT);
             stmt.setString(1, teachingUnit.getAcronim());
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 ExamStatement examStatement = new ExamStatement(rs.getInt(1), rs.getString(2), StatementLevel.valueOf(rs.getString(3)), rs.getBoolean(4), rs.getString(5));
 
-                if (unico){
+                if (unico) {
                     System.out.println("The EXAM STATEMENTS are:\n" + "- " + examStatement.getDescription());
                 } else {
                     System.out.println("- " + examStatement.getDescription());
                 }
-                
+
                 unico = false;
             }
 
-            if (unico){
+            if (unico) {
                 System.out.println("There is no EXAM STATEMENT with that TEACHING UNIT.");
             }
-            
+
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -480,17 +488,17 @@ public class DBImplementation implements ModelDAO {
                 System.out.println("[ ERROR ] Invalid ID");
             }
         } while (!exists);
-        
+
         this.openConnection();
-        
-        try{
+
+        try {
             stmt = con.prepareStatement(SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT);
             stmt.setInt(1, examStatement.getId());
             rs = stmt.executeQuery();
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 ExamSession examSession = new ExamSession(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5));
-                if (unico){
+                if (unico) {
                     System.out.println("The exam session are:\n" + "- " + examSession.getSession());
                 } else {
                     System.out.println("- " + examSession.getSession());
@@ -498,11 +506,11 @@ public class DBImplementation implements ModelDAO {
                 unico = false;
                 respuesta = true;
             }
-            
-            if (!respuesta){
-                System.out.println("There is no EXAM SESSION with that EXAM STATEMENT."); 
+
+            if (!respuesta) {
+                System.out.println("There is no EXAM SESSION with that EXAM STATEMENT.");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.getMessage());
         }
     }
