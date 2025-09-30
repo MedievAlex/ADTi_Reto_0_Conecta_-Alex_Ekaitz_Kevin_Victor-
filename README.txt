@@ -51,10 +51,10 @@
 ---------> verifyExamStatement(examStatement);
 ---------> con.prepareStatement(SQLINSERT_EXAMSESSION)
 
-------> consultStatementByTeachingUnit() [ MISSING ]: EKAITZ
+------> consultStatementByTeachingUnit()
 ---------> showAllTeachingUnits()
 ---------> verifyTeachingUnit(teachingUnit) 
 
-------> consultSessionsByStatement() [ MISSING ]: KEVIN
+------> consultSessionsByStatement()
 ---------> showAllExamStatements()
 ---------> verifyExamStatement(examStatement)

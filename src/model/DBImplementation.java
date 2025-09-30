@@ -371,7 +371,7 @@ public class DBImplementation implements ModelDAO {
         examSession.setSession(Utilidades.introducirCadena());
         System.out.print("Enter the DESCRIPTION: ");
         examSession.setDescription(Utilidades.introducirCadena());
-        System.out.print("Enter the DESCRIPTION: ");
+        System.out.print("Enter the DATE: ");
         examSession.setSession_date(java.sql.Date.valueOf(Utilidades.leerFechaAMD()));
         System.out.print("Enter the COURSE: ");
         examSession.setCourse(Utilidades.introducirCadena());
@@ -383,10 +383,10 @@ public class DBImplementation implements ModelDAO {
             System.out.print("Add the EXAM STATEMENTS's ID: ");
             ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
-            if (exists) {
-                System.out.print("[ ERROR ] Invalid ID");
+            if (!exists) {
+                System.out.println("[ ERROR ] Invalid ID");
             }
-        } while (exists);
+        } while (!exists);
         
         this.openConnection();
         try {
