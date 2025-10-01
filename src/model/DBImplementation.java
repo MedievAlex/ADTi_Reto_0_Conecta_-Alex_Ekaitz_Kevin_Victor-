@@ -322,7 +322,7 @@ public class DBImplementation implements ModelDAO {
                     case "INTERMEDIATE":
                         examStatement.setStatementLevel(StatementLevel.INTERMEDIATE);
                         break;
-                    case "BAJO":
+                    case "LOW":
                         examStatement.setStatementLevel(StatementLevel.LOW);
                         break;
                 }
