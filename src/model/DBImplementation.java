@@ -279,7 +279,7 @@ public class DBImplementation implements ModelDAO {
                             break;
                     }
                     stmt.setBoolean(3, examStatement.getAvailable());
-                    stmt.setString(4, examStatement.getDescription());
+                    stmt.setString(4, examStatement.getRoute());
 
                     if (stmt.executeUpdate() == 0) {
                         System.out.println("It was not possible to create the new EXAM STATEMENT.");
