@@ -112,42 +112,47 @@ public class DBImplementation implements ModelDAO {
      */
     @Override
     public void newTeachingUnit() {
+        boolean exists;
+        TeachingUnit teachingUnit;
 
-        System.out.print("Enter the ACRONIM: ");
-        TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
-        if (!verifyTeachingUnit(teachingUnit)) {
-            System.out.print("Enter the TITLE: ");
-            teachingUnit.setTitle(Utilidades.introducirCadena());
-            System.out.print("Enter the EVALUATION: ");
-            teachingUnit.setEvaluation(Utilidades.introducirCadena());
-            System.out.print("Enter the DESCRIPTION: ");
-            teachingUnit.setDescription(Utilidades.introducirCadena());
+        do {
+            System.out.print("Enter the ACRONIM: ");
+            teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
 
-            this.openConnection();
-            try {
-                stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); // ACRONIM, TITLE, EVALUATION, DESCRIPTION
-                stmt.setString(1, teachingUnit.getAcronim());
-                stmt.setString(2, teachingUnit.getTitle());
-                stmt.setString(3, teachingUnit.getEvaluation());
-                stmt.setString(4, teachingUnit.getDescription());
+            exists = verifyTeachingUnit(teachingUnit);
 
-                if (stmt.executeUpdate() == 0) {
-                    System.out.println("It was not possible to create the new TEACHING UNIT.");
-                } else {
-                    System.out.println("The TEACHING UNIT with " + teachingUnit.getAcronim() + " ACRONIM was created correctly.");
-                }
+            if (exists) {
+                System.out.println("[ ERROR ] That TEACHING UNIT already exist.");
+            }
+        } while (exists);
 
-                stmt.close();
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("An error has occurred when attempting to register the TEACHING UNIT.");
-                e.printStackTrace();
+        System.out.print("Enter the TITLE: ");
+        teachingUnit.setTitle(Utilidades.introducirCadena());
+        System.out.print("Enter the EVALUATION: ");
+        teachingUnit.setEvaluation(Utilidades.introducirCadena());
+        System.out.print("Enter the DESCRIPTION: ");
+        teachingUnit.setDescription(Utilidades.introducirCadena());
+
+        this.openConnection();
+        try {
+            stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); // ACRONIM, TITLE, EVALUATION, DESCRIPTION
+            stmt.setString(1, teachingUnit.getAcronim());
+            stmt.setString(2, teachingUnit.getTitle());
+            stmt.setString(3, teachingUnit.getEvaluation());
+            stmt.setString(4, teachingUnit.getDescription());
+
+            if (stmt.executeUpdate() == 0) {
+                System.out.println("It was not possible to create the new TEACHING UNIT.");
+            } else {
+                System.out.println("The TEACHING UNIT with " + teachingUnit.getAcronim() + " ACRONIM was created correctly.");
             }
 
-        } else {
-            System.out.println("[ ERROR ] That TEACHING UNIT already exist.");
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("An error has occurred when attempting to register the TEACHING UNIT.");
+            e.printStackTrace();
         }
-
     }
 
     /**
@@ -174,6 +179,7 @@ public class DBImplementation implements ModelDAO {
             stmt.close();
             con.close();
         } catch (Exception e) {
+            System.out.println("An error has occurred when attempting to show all TEACHING UNITS.");
             e.printStackTrace();
         }
     }
@@ -212,8 +218,7 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Creates an exam STATEMENT (Enunciado) by adding an existent teaching
-     * units (UnidadDidactica).
+     * Creates an exam STATEMENT (Enunciado) by adding an existent teaching units (UnidadDidactica).
      */
     @Override
     public void newExamStatement() {
@@ -395,8 +400,7 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
-     * (Enunciado).
+     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT (Enunciado).
      */
     @Override
     public void newExamSession() {
@@ -450,8 +454,7 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT
-     * (UnidadDIdactica).
+     * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT (UnidadDIdactica).
      *
      */
     @Override
@@ -505,8 +508,7 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Consult in which SESSIONS (Convocatoria) a specific STATEMENT (Enunciado)
-     * has been used.
+     * Consult in which SESSIONS (Convocatoria) a specific STATEMENT (Enunciado) has been used.
      */
     @Override
     public void consultSessionsByStatement() {
