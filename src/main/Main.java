@@ -4,7 +4,7 @@ import controller.Controller;
 import utilidades.Utilidades;
 
 /**
- * @author Alex, Ekaitz, Kevin & Victor
+ * @author Alex, Ekaitz, Kevin, Victor
  */
 public class Main {
 

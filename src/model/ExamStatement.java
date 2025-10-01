@@ -1,7 +1,7 @@
 package model;
 
 /**
- * @author Alex, Ekaitz, Kevin & Victor
+ * @author Alex, Ekaitz, Kevin, Victor
  */
 public class ExamStatement {
 

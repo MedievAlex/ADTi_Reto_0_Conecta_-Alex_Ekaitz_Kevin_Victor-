@@ -1,8 +1,10 @@
 [ REPOSITORIO GITHUB ]
 https://github.com/MedievAlex/ADTi_Reto_0_Conecta_-Alex_Ekaitz_Kevin_Victor-.git
 
-[ METODOS Y SUS LLAMADAS ]
+[ JAVADOC ]
+dist/javadoc/index.html
 
+[ METODOS Y SUS LLAMADAS ]
 -> main
 ---> Main
 

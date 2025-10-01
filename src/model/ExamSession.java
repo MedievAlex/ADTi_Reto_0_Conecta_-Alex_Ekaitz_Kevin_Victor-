@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 /**
- * @author Alex, Ekaitz, Kevin & Victor
+ * @author Alex, Ekaitz, Kevin, Victor
  */
 public class ExamSession {
 

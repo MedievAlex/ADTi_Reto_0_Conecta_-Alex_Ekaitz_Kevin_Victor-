@@ -5,7 +5,7 @@ import java.util.*;
 import utilidades.Utilidades;
 
 /**
- * @author Alex, Ekaitz, Kevin & Victor
+ * @author Alex, Ekaitz, Kevin, Victor
  */
 public class DBImplementation implements ModelDAO {
 
@@ -31,8 +31,8 @@ public class DBImplementation implements ModelDAO {
      */
     final String SQLINSERT_TEACHINGUNIT = "INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES (?, ?, ?, ?)";
     final String SQLINSERT_EXAMSTATEMENT = "INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE) VALUES (?, ?, ?, ?)";
-    final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)"; //ES_SESSION, DESCRIPTION, SESSION_DATE, COURSE, E_ID int
-    final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)";
+    final String SQLINSERT_EXAMSESSION = "INSERT INTO ExamSession VALUES (?, ?, ?, ?, ?)"; // ES_SESSION, DESCRIPTION, SESSION_DATE, COURSE, E_ID
+    final String SQLINSERT_STATEMENTUNIT = "INSERT INTO StatementUnit VALUES (?, ?)"; // TU_ACRONIM, ES_ID
 
     /**
      * SQL Queries: SELECTS
@@ -125,7 +125,7 @@ public class DBImplementation implements ModelDAO {
 
             this.openConnection();
             try {
-                stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); //(ACRONIM, TITLE, EVALUATION, DESCRIPTION)
+                stmt = con.prepareStatement(SQLINSERT_TEACHINGUNIT); // ACRONIM, TITLE, EVALUATION, DESCRIPTION
                 stmt.setString(1, teachingUnit.getAcronim());
                 stmt.setString(2, teachingUnit.getTitle());
                 stmt.setString(3, teachingUnit.getEvaluation());
@@ -265,7 +265,7 @@ public class DBImplementation implements ModelDAO {
 
                 this.openConnection();
                 try {
-                    stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); //(DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE)
+                    stmt = con.prepareStatement(SQLINSERT_EXAMSTATEMENT); // DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE
                     stmt.setString(1, examStatement.getDescription());
                     switch (examStatement.getStatementLevel()) {
                         case HIGH:
@@ -379,7 +379,7 @@ public class DBImplementation implements ModelDAO {
 
         this.openConnection();
         try {
-            stmt = con.prepareStatement(SQLINSERT_STATEMENTUNIT);
+            stmt = con.prepareStatement(SQLINSERT_STATEMENTUNIT); // TU_ACRONIM, ES_ID
             stmt.setString(1, teachingUnit.getAcronim());
             stmt.setInt(2, examStatement.getId());
             if (stmt.executeUpdate() > 0) {
@@ -428,7 +428,7 @@ public class DBImplementation implements ModelDAO {
 
         this.openConnection();
         try {
-            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); //(SESSION, DESCRIPTION, SESSION_DATE, CURSO, E_ID)
+            stmt = con.prepareStatement(SQLINSERT_EXAMSESSION); // ES_SESSION, DESCRIPTION, SESSION_DATE, COURSE, E_ID
             stmt.setString(1, examSession.getSession());
             stmt.setString(2, examSession.getDescription());
             stmt.setDate(3, examSession.getSession_date());

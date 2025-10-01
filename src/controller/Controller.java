@@ -1,13 +1,12 @@
 package controller;
 
-import model.ExamSession;
 import model.DBImplementation;
 import model.ExamStatement;
 import model.ModelDAO;
 import model.TeachingUnit;
 
 /**
- * @author Alex, Ekaitz, Kevin & Victor
+ * @author Alex, Ekaitz, Kevin, Victor
  */
 public class Controller {
 
