@@ -72,6 +72,16 @@ public class Controller {
     }
 
     /**
+     * Gets the EXAM STATEMENT's (Enunciado) route
+     *
+     * @param examStatement
+     * @return
+     */
+    public String getExamStatementsRoute(ExamStatement examStatement){
+        return dao.getExamStatementsRoute(examStatement);
+    }
+    
+    /**
      * Creates a insert on the StatementUnit table
      *
      * @param teachingUnit
@@ -106,4 +116,11 @@ public class Controller {
         dao.consultSessionsByStatement();
     }
 
+    /**
+     * Opens the EXAM STATEMENTS's File
+     */
+    public void openExamStatements(){
+        dao.openExamStatements();
+    }
+            
 }

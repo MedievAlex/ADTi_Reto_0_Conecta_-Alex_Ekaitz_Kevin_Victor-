@@ -45,10 +45,10 @@ INSERT INTO TeachingUnit (ACRONIM, TITLE, EVALUATION, DESCRIPTION) VALUES
 ("ADTi", "Acceso a Datos Inglés", "Tercera", "Desarrolla aplicaciones y componentes de acceso a datos, gestionando su persistencia y garantizando la seguridad y calidad de los mismos.");
 
 INSERT INTO ExamStatement (DESCRIPTION, STATEMENT_LEVEL, AVAILABLE, ROUTE) VALUES
-("Genera un programa de compraventa.", "LOW", true, "iKTs3cb2Z7"),
-("Genera un programa con interfaz.", "HIGH", true, "8VmUF0mgqm"),
-("Genera un programa utilizando una base de datos.", "INTERMEDIATE", true, "tNjejJ6D3D"),
-("Crea un esquema del funcionamiento de una aplicacion generica.", "LOW", false, "v5wFoyfNHC");
+("Genera un programa de compraventa.", "LOW", true, "src/examStatements/EXAMSTATEMENT_1.pdf"),
+("Genera un programa con interfaz.", "HIGH", true, "src/examStatements/EXAMSTATEMENT_2.pdf"),
+("Genera un programa utilizando una base de datos.", "INTERMEDIATE", true, "src/examStatements/EXAMSTATEMENT_3.pdf"),
+("Crea un esquema del funcionamiento de una aplicacion generica.", "LOW", false, "src/examStatements/EXAMSTATEMENT_4.pdf");
 
 INSERT INTO StatementUnit VALUES
 ("DIN", 1),

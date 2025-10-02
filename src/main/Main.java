@@ -22,8 +22,9 @@ public class Main {
         System.out.println("[ 3 ] Create a EXAM SESSION");
         System.out.println("[ 4 ] Consult the EXAM STATEMENT by TEACHING UNIT");
         System.out.println("[ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used");
+        System.out.println("[ 6 ] Open EXAM STATEMENTS");
         System.out.print("Choose: ");
-        return Utilidades.leerInt(0, 5);
+        return Utilidades.leerInt(0, 6);
     }
 
     /**
@@ -58,6 +59,9 @@ public class Main {
                     break;
                 case 5: // [ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used
                     cont.consultSessionsByStatement();
+                    break;
+                case 6: // [ 6 ] Open EXAM STATEMENTS
+                    cont.openExamStatements();
                     break;
             }
         } while (opcion != 0);
