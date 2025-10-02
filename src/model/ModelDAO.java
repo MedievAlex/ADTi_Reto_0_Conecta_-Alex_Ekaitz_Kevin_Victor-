@@ -50,6 +50,14 @@ public interface ModelDAO {
     public int countAllExamStatements();
 
     /**
+     * Gets the EXAM STATEMENT's (Enunciado) route
+     *
+     * @param examStatement
+     * @return
+     */
+    public String getExamStatementsRoute(ExamStatement examStatement);
+    
+    /**
      * Creates a insert on the StatementUnit table
      *
      * @param teachingUnit
@@ -77,4 +85,8 @@ public interface ModelDAO {
      */
     public void consultSessionsByStatement();
 
+    /**
+     * Opens the EXAM STATEMENTS's File
+     */
+    public void openExamStatements();
 }

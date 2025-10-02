@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 import utilidades.Utilidades;
@@ -42,6 +45,7 @@ public class DBImplementation implements ModelDAO {
 
     final String SQLSELECT_EXAMSTATEMENT = "SELECT * FROM ExamStatement WHERE id = ?";
     final String SQLSELECT_ALLEXAMSTATEMENTS = "SELECT * FROM ExamStatement";
+    final String SQLSELECT_EXAMSTATEMENTROUTE = "SELECT route FROM ExamStatement WHERE id = ?";
 
     final String SQLSELECT_EXAMSESSION = "SELECT * FROM ExamSession WHERE id = ?";
 
@@ -218,7 +222,8 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Creates an exam STATEMENT (Enunciado) by adding an existent teaching units (UnidadDidactica).
+     * Creates an exam STATEMENT (Enunciado) by adding an existent teaching
+     * units (UnidadDidactica).
      */
     @Override
     public void newExamStatement() {
@@ -347,11 +352,12 @@ public class DBImplementation implements ModelDAO {
     /**
      * Counts all the EXAM STATEMENT's (Enunciado) on the database
      *
-     * @return
+     * @return num
      */
     @Override
     public int countAllExamStatements() {
         int num = 1;
+
         // Open connection and checks all the existing units.
         this.openConnection();
 
@@ -369,6 +375,36 @@ public class DBImplementation implements ModelDAO {
             e.printStackTrace();
         }
         return num;
+    }
+
+    /**
+     * Gets the EXAM STATEMENT's (Enunciado) route
+     *
+     * @param examStatement
+     * @return
+     */
+    @Override
+    public String getExamStatementsRoute(ExamStatement examStatement) {
+        String route = "";
+
+        // Open connection and checks all the existing units.
+        this.openConnection();
+
+        try {
+            // Prepare the SQL query
+            stmt = con.prepareStatement(SQLSELECT_EXAMSTATEMENTROUTE);
+            stmt.setInt(1, examStatement.getId());
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                route = rs.getString("ROUTE");
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return route;
     }
 
     /**
@@ -400,7 +436,8 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT (Enunciado).
+     * Create a EXAM SESSION (Convocatoria) by adding an existent STATEMENT
+     * (Enunciado).
      */
     @Override
     public void newExamSession() {
@@ -454,7 +491,8 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT (UnidadDIdactica).
+     * Consult the exam STATEMENT (Enunciado) by TEACHING UNIT
+     * (UnidadDIdactica).
      *
      */
     @Override
@@ -508,7 +546,8 @@ public class DBImplementation implements ModelDAO {
     }
 
     /**
-     * Consult in which SESSIONS (Convocatoria) a specific STATEMENT (Enunciado) has been used.
+     * Consult in which SESSIONS (Convocatoria) a specific STATEMENT (Enunciado)
+     * has been used.
      */
     @Override
     public void consultSessionsByStatement() {
@@ -551,5 +590,33 @@ public class DBImplementation implements ModelDAO {
         } catch (SQLException e) {
             System.out.println("SQL ERROR: " + e.getMessage());
         }
+    }
+
+    /**
+     * Opens the EXAM STATEMENTS's File
+     */
+    public void openExamStatements() {
+        boolean exists;
+        String route;
+
+        System.out.println("[ AVAILABLE EXAM STATEMENTS ]");
+        showAllExamStatements();
+
+        do {
+            System.out.print("Add the EXAM STATEMENTS's ID: ");
+            ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
+            exists = verifyExamStatement(examStatement);
+            if (!exists) {
+                System.out.println("[ ERROR ] Invalid ID");
+            } else {
+                route = getExamStatementsRoute(examStatement);
+                try {
+                    File path = new File(route);
+                    Desktop.getDesktop().open(path);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } while (!exists);
     }
 }
