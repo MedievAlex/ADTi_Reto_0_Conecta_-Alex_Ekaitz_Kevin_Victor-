@@ -126,7 +126,7 @@ public class DBImplementation implements ModelDAO {
             exists = verifyTeachingUnit(teachingUnit);
 
             if (exists) {
-                System.out.println("[ ERROR ] That TEACHING UNIT already exist.");
+                System.err.println("[ ERROR ] That TEACHING UNIT already exist.");
             }
         } while (exists);
 
@@ -268,7 +268,7 @@ public class DBImplementation implements ModelDAO {
             TeachingUnit teachingUnit = new TeachingUnit(Utilidades.introducirCadena());
             exists = verifyTeachingUnit(teachingUnit);
             if (!exists) {
-                System.out.println("[ ERROR ] Invalid ACRONIM");
+                System.err.println("[ ERROR ] Invalid ACRONIM");
             } else {
 
                 examStatement.setId(countAllExamStatements());
@@ -461,7 +461,7 @@ public class DBImplementation implements ModelDAO {
             ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
             if (!exists) {
-                System.out.println("[ ERROR ] Invalid ID");
+                System.err.println("[ ERROR ] Invalid ID");
             } else {
                 examSession.seteId(examStatement.getId());
             }
@@ -510,7 +510,7 @@ public class DBImplementation implements ModelDAO {
             exists = verifyTeachingUnit(teachingUnit);
 
             if (!exists) {
-                System.out.println("[ ERROR ] Invalid ACRONIM");
+                System.err.println("[ ERROR ] Invalid ACRONIM");
             }
         } while (!exists);
 
@@ -562,7 +562,7 @@ public class DBImplementation implements ModelDAO {
             examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
             if (!exists) {
-                System.out.println("[ ERROR ] Invalid ID");
+                System.err.println("[ ERROR ] Invalid ID");
             }
         } while (!exists);
 
@@ -607,7 +607,7 @@ public class DBImplementation implements ModelDAO {
             ExamStatement examStatement = new ExamStatement(Utilidades.leerInt());
             exists = verifyExamStatement(examStatement);
             if (!exists) {
-                System.out.println("[ ERROR ] Invalid ID");
+                System.err.println("[ ERROR ] Invalid ID");
             } else {
                 route = getExamStatementsRoute(examStatement);
                 try {
