@@ -23,6 +23,9 @@ dist/javadoc/index.html
 ------> [ 5 ] Consult in which EXAM SESSIONS a specific EXAM STATEMENT has been used
 ---------> cont.consultSessionsByStatement()
 
+------> [ 6 ] Open EXAM STATEMENTS
+---------> cont.openExamStatements()
+
 -> model
 ---> DBImplementation
 
@@ -52,6 +55,9 @@ dist/javadoc/index.html
 ------> countAllExamStatements()
 ---------> con.prepareStatement(SQLSELECT_ALLEXAMSTATEMENTS)
 
+------> getExamStatementsRoute(ExamStatement examStatement)
+---------> con.prepareStatement(SQLSELECT_EXAMSTATEMENTROUTE)
+
 ------> newStatementForUnit(TeachingUnit teachingUnit, ExamStatement examStatement)
 ---------> con.prepareStatement(SQLINSERT_STATEMENTUNIT)
 
@@ -69,3 +75,8 @@ dist/javadoc/index.html
 ---------> showAllExamStatements()
 ---------> verifyExamStatement(examStatement)
 ---------> con.prepareStatement(SQLSELECT_EXAMSESSIONBYEXAMSTATEMENT)
+
+------> openExamStatements()
+---------> showAllExamStatements()
+---------> verifyExamStatement(examStatement)
+---------> getExamStatementsRoute(examStatement)
